@@ -1,0 +1,15 @@
+.home {
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+}
+.googlebtn {
+	padding: 20px 30px;
+	border-radius: 12px;
+	background-color: rgb(218, 218, 218);
+}
+.googlebtn:hover {
+	background-color: rgb(187, 187, 187);
+	transition: 0.3s;
+}
