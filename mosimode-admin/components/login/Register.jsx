@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "@/components/login/Register.module.css";
 import { useState } from "react";
+import axios from "axios";
 
 function Register() {
 	const [formState, setFormState] = useState({ name: "", email: "", password: "" });
@@ -8,9 +9,18 @@ function Register() {
 		const { name, value } = e.target;
 		setFormState((prevState) => ({ ...prevState, [name]: value }));
 	};
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formState); // Do something with the form data
+		try {
+			const { data } = await axios.post("/api/register", {
+				name: formState.name,
+				email: formState.email,
+				password: formState.password,
+			});
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	return (
 		<div className={styles.card}>
