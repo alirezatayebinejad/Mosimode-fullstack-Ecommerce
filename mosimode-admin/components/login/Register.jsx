@@ -11,16 +11,6 @@ function Register() {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const { data } = await axios.post("/api/register", {
-				name: formState.name,
-				email: formState.email,
-				password: formState.password,
-			});
-			console.log(data);
-		} catch (error) {
-			console.log(error);
-		}
 	};
 	return (
 		<div className={styles.card}>

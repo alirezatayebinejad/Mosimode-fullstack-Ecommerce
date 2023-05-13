@@ -1,11 +1,11 @@
 import Signincard from "@/components/login/Signincard";
 import Register from "@/components/login/Register";
 import styles from "./login.module.css";
-import { use, useState } from "react";
+import { useState } from "react";
 
-function login() {
+function Login() {
 	const [register, useRegister] = useState(false);
-	console.log(register);
+
 	if (!register)
 		return (
 			<div className={styles.login}>
@@ -19,7 +19,7 @@ function login() {
 	else {
 		return (
 			<div className={styles.login}>
-				<h1 className={styles.title}>Log In to your account</h1>
+				<h1 className={styles.title}>Log in to your account</h1>
 				<Register />
 				<h4 className={styles.registerText}>
 					no account? <span onClick={() => useRegister(!register)}>click to sign in</span>
@@ -29,4 +29,4 @@ function login() {
 	}
 }
 
-export default login;
+export default Login;

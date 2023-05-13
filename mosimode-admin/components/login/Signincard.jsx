@@ -10,7 +10,6 @@ function Signincard() {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(formState); // Do something with the form data
 	};
 	return (
 		<div className={styles.card}>
