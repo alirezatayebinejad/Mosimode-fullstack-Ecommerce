@@ -9,6 +9,7 @@
 	box-sizing: border-box;
 }
 a {
+	font-size: 18px;
 	text-decoration: none;
 }
 body {
@@ -34,7 +35,6 @@ h6 {
 	font-size: 12px;
 }
 p {
-	font-size: 16px;
+	font-size: 18px;
 	color: #465b52;
-	margin: 15px 0 20px 0;
 }

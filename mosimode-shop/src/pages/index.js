@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import HomePage from './Home/index.jsx'
 import Header from '@/components/Header/Header'
+import Footer from '@/components/Footer/Footer.jsx'
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       <main >
         <Header />
         <HomePage />
-
+        <Footer />
       </main>
     </>
   )
