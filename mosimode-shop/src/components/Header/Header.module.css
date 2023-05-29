@@ -78,4 +78,11 @@
 	.list_nav {
 		display: none;
 	}
+	.header {
+		flex-wrap: wrap;
+	}
+	.logo_image {
+		width: 35px;
+		height: 35px;
+	}
 }

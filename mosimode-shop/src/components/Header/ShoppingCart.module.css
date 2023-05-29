@@ -1,0 +1,40 @@
+.shoppingcart {
+	display: none;
+}
+.showcart {
+	display: block;
+}
+.shoppingcartcontainer {
+	background-color: white;
+	position: absolute;
+	width: 300px;
+	height: 100vh;
+	top: 0;
+	right: 0;
+	box-shadow: 1px 1px 20px rgb(240, 240, 240);
+	padding: 5px 20px;
+	z-index: 999;
+}
+.cartbackground {
+	background-color: rgb(0, 0, 0);
+	opacity: 0.4;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 999;
+}
+.showcart {
+	display: block;
+}
+.closebtn {
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	cursor: pointer;
+}
+.closebtn p {
+	padding-top: 5px;
+	font-size: 20px;
+}

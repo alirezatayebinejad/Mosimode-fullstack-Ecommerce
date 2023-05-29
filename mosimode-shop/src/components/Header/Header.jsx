@@ -5,8 +5,14 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Image from "next/image";
 import BurgerMenu from "./BurgerMenu";
 import ShoppingCart from "./ShoppingCart";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsCartOpen } from "../../store/cartSlice";
 
 const Header = () => {
+	const dispatch = useDispatch();
+	const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+	console.log(isCartOpen);
+
 	return (
 		<header>
 			<div className={styles.header}>
@@ -35,7 +41,7 @@ const Header = () => {
 					</nav>
 					<div className={styles.list_icon}>
 						<Link href="">
-							<i>
+							<i onClick={() => dispatch(setIsCartOpen({}))}>
 								<ShoppingBasketIcon />
 							</i>
 						</Link>
