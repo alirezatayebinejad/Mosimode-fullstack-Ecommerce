@@ -10,8 +10,6 @@ import { setIsCartOpen } from "../../store/cartSlice";
 
 const Header = () => {
 	const dispatch = useDispatch();
-	const isCartOpen = useSelector((state) => state.cart.isCartOpen);
-	console.log(isCartOpen);
 
 	return (
 		<header>
