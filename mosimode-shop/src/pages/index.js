@@ -4,6 +4,7 @@ import Footer from '@/components/Footer/Footer.jsx'
 import Banner from '@/components/Banner/Banner.jsx'
 import Features from '@/components/Sections/Features.jsx'
 import Products from '@/components/Sections/Products.jsx'
+import OffBanner from '@/components/Sections/OffBanner'
 
 export default function Home({ products }) {
   console.log("products home:", products);
@@ -21,6 +22,8 @@ export default function Home({ products }) {
           <Banner />
           <Features />
           <Products products={products} title="New Arrivals" />
+          <OffBanner />
+          <Products products={products} title="Popular items" />
         </div>
         <Footer />
       </main>
