@@ -1,9 +1,12 @@
 import Head from 'next/head'
-import HomePage from './Home/index.jsx'
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer.jsx'
+import Banner from '@/components/Banner/Banner.jsx'
+import Features from '@/components/Sections/Features.jsx'
+import Products from '@/components/Sections/Products.jsx'
 
-export default function Home() {
+export default function Home({ products }) {
+  console.log("products home:", products);
   return (
     <>
       <Head>
@@ -14,9 +17,23 @@ export default function Home() {
       </Head>
       <main >
         <Header />
-        <HomePage />
+        <div>
+          <Banner />
+          <Features />
+          <Products products={products} />
+        </div>
         <Footer />
       </main>
     </>
   )
+}
+export async function getServerSideProps() {
+  console.log("Pre-rendering items");
+  const response = await fetch("https://fakestoreapi.com/products/");
+  const data = await response.json();
+  return {
+    props: {
+      products: data,
+    },
+  };
 }
