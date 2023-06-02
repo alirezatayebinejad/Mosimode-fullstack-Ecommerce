@@ -20,7 +20,7 @@ export default function Home({ products }) {
         <div>
           <Banner />
           <Features />
-          <Products products={products} />
+          <Products products={products} title="New Arrivals" />
         </div>
         <Footer />
       </main>
@@ -33,7 +33,7 @@ export async function getServerSideProps() {
   const data = await response.json();
   return {
     props: {
-      products: data,
+      products: data.slice(0, 10),
     },
   };
 }
