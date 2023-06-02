@@ -1,0 +1,26 @@
+.featurescard {
+	width: 180px;
+	text-align: center;
+	padding: 25px 15px;
+	box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.03);
+	border: 1px solid #ececec;
+	border-radius: 15px;
+	margin: 15px 0;
+	transition: box-shadow 0.3s;
+}
+.featurescard:hover {
+	box-shadow: 10px 10px 54px rgba(0, 0, 0, 0.1);
+}
+.featurescard img {
+	width: 100%;
+	margin-bottom: 10px;
+}
+.featurescard h6 {
+	display: inline-block;
+	padding: 9px 8px 6px 8px;
+	line-height: 1;
+	font-size: 14px;
+	border-radius: 4px;
+	color: var(--main-color);
+	background-color: #fddde4;
+}
