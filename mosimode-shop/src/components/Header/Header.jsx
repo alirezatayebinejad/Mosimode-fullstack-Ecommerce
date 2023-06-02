@@ -5,7 +5,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Image from "next/image";
 import BurgerMenu from "./BurgerMenu";
 import ShoppingCart from "./ShoppingCart";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setIsCartOpen } from "../../store/cartSlice";
 
 const Header = () => {
