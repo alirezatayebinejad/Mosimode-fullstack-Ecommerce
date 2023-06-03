@@ -6,7 +6,7 @@ import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
 import Link from "next/link";
 
-const ProductCard = ({ title, image, price, rating, category }) => {
+const ProductCard = ({ id, title, image, price, rating, category, onClick }) => {
 	const rate = Math.round(rating.rate);
 	const renderStars = () => {
 		const stars = [];
@@ -27,16 +27,17 @@ const ProductCard = ({ title, image, price, rating, category }) => {
 		}
 		return stars;
 	};
+
 	return (
 		<div className={styles.product_cart}>
-			<Link href={"/"}>
-				<Image className={styles.product_image} src={image} width={1080} height={1350} alt="product image" />
+			<Link href={`/shop/${id}`}>
+				<Image className={styles.product_image} src={image} width={1080} height={1350} alt={title} />
 			</Link>
 			<span>{category}</span>
 			<h4 className={styles.text_limit}>{title}</h4>
 			<div className={styles.stars}>{renderStars()}</div>
 			<h4 className={styles.price}>${price}</h4>
-			<button href="#" className={styles.buy_icon}>
+			<button className={styles.buy_icon}>
 				<ShoppingCartIcon />
 			</button>
 		</div>

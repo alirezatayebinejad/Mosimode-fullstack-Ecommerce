@@ -4,8 +4,6 @@ import ProductCard from "../Cards/ProductCard";
 import Link from "next/link";
 
 const products = ({ products, title }) => {
-	console.log("products render", products);
-
 	return (
 		<>
 			<section className={styles.products_section}>

@@ -1,0 +1,30 @@
+.categoryfilter {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 50px 20px;
+}
+.categorybuttons {
+	padding-top: 20px;
+	text-align: center;
+}
+.categorybuttons button {
+	padding: 10px;
+	cursor: pointer;
+	background-color: rgb(236, 236, 236);
+	border: none;
+	border-radius: 8px;
+	margin: 8px;
+	transition: 0.3s;
+}
+.categorybuttons button:hover {
+	background-color: rgb(214, 214, 214);
+}
+.categorybuttons .activeButton {
+	background-color: var(--main-color);
+	color: white;
+}
+.categorybuttons .activeButton:hover {
+	background-color: var(--main-color);
+}

@@ -1,0 +1,43 @@
+.productslists {
+	padding: 0 20px;
+}
+.products {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 10px;
+	margin-bottom: 50px;
+}
+.pagination button {
+	padding: 10px 15px;
+	margin: 0 2px;
+	border-radius: 100%;
+	border: none;
+	background-color: rgb(235, 235, 235);
+	font-weight: bold;
+	font-size: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+.pagination button:hover {
+	background-color: rgb(212, 212, 212);
+}
+.pagination .activepage {
+	background-color: var(--main-color);
+	color: white;
+}
+.pagination .activepage:hover {
+	background-color: var(--main-color);
+}
+@media screen and (max-width: 460px) {
+	.productslists {
+		padding: 0;
+	}
+}

@@ -7,7 +7,6 @@ import Products from '@/components/Sections/Products.jsx'
 import OffBanner from '@/components/Sections/OffBanner'
 
 export default function Home({ products }) {
-  console.log("products home:", products);
   return (
     <>
       <Head>
@@ -31,7 +30,6 @@ export default function Home({ products }) {
   )
 }
 export async function getServerSideProps() {
-  console.log("Pre-rendering items");
   const response = await fetch("https://fakestoreapi.com/products/");
   const data = await response.json();
   return {
