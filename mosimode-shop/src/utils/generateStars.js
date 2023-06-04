@@ -10,12 +10,12 @@ const generateStars = (rating) => {
         if (i < roundedRating) {
             stars.push(
                 <i key={i}>
-                    <StarIcon />
+                    <StarIcon style={{ color: '#e6ae2c' }} />
                 </i>);
         } else {
             stars.push(
                 <i key={i}>
-                    <StarBorderIcon />
+                    <StarBorderIcon style={{ color: '#e6ae2c' }} />
                 </i>);
         }
     }

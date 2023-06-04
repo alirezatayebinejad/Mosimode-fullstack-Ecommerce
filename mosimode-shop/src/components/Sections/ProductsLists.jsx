@@ -50,7 +50,7 @@ const ProductsLists = ({ products, selectedCategory }) => {
 			<div className={styles.pagination}>
 				{generatePageNumbers().length > 1 &&
 					generatePageNumbers().map((pageNumber, index) => (
-						<button key={pageNumber} onClick={() => paginate(pageNumber)} className={currentPage === index + 1 && styles.activepage}>
+						<button key={pageNumber} onClick={() => paginate(pageNumber)} className={currentPage === index + 1 ? styles.activepage : ""}>
 							{pageNumber}
 						</button>
 					))}

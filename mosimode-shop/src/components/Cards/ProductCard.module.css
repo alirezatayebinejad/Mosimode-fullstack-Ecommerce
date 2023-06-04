@@ -27,10 +27,7 @@
 	font-size: 18px;
 	color: rgb(41, 41, 41);
 }
-.stars {
-	color: #e6ae2c;
-	padding: 6px 0;
-}
+
 .product_cart .price {
 	color: var(--main-color);
 	padding: 4px 0;
