@@ -4,9 +4,9 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import Products from "@/components/Sections/Products";
 import Image from "next/image";
-import generateStars from "../../utils/generateStars";
+import generateStars from "../../../utils/generateStars";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../store/cartSlice";
+import { addToCart } from "../../../store/cartSlice";
 
 const ProductPage = ({ product, productList }) => {
 	const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const ProductPage = ({ product, productList }) => {
 			<section className={styles.section}>
 				<div className={styles.product_container}>
 					<div className={styles.product_image}>
-						<Image className={styles.product_picture} src={product.image} alt={product.title} width={1080} height={1350} />
+						<Image className={styles.product_picture} src={product.image} alt={product.title} width={1080} height={1350} priority />
 					</div>
 					<div className={styles.product_info}>
 						<h3>{product.title}</h3>

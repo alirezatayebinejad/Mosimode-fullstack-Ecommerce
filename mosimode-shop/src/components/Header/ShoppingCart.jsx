@@ -9,8 +9,8 @@ const ShoppingCart = () => {
 	const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
 	return (
-		<div className={`${styles.shoppingcart} ${isCartOpen && styles.showcart}`}>
-			<div className={styles.cartbackground}></div>
+		<div className={`${styles.shoppingcart} ${isCartOpen ? styles.showcart : ""}`}>
+			<div className={styles.cartbackground} onClick={() => dispatch(setIsCartOpen({}))}></div>
 			<div className={styles.shoppingcartcontainer}>
 				<div className={styles.closebtn} onClick={() => dispatch(setIsCartOpen({}))}>
 					<CloseIcon />

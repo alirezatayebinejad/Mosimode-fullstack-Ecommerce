@@ -14,7 +14,7 @@ const ProductCard = (product) => {
 	};
 	return (
 		<div className={styles.product_cart}>
-			<Link href={`/shop/${product.id}`}>
+			<Link href={`/shop/product/${product.id}`}>
 				<Image className={styles.product_image} src={product.image} width={1080} height={1350} alt={product.title} />
 			</Link>
 			<span>{product.category}</span>
