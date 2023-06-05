@@ -10,7 +10,9 @@ import { addToCart } from "../../store/cartSlice";
 const ProductCard = (product) => {
 	const dispatch = useDispatch();
 	const addToBasketHandler = () => {
-		dispatch(addToCart({ product, count: 1 }));
+		//we pull out the onClick part because of redux reasons
+		const { onClick, ...productData } = product;
+		dispatch(addToCart({ product: productData, count: 1 }));
 	};
 	return (
 		<div className={styles.product_cart}>
