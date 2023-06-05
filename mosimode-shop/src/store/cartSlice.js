@@ -11,9 +11,7 @@ export const cartSlice = createSlice({
     reducers: {
 
         addToCart: (state, action) => {
-            if ((state.cart).find((item) => action.payload.product.id == item.product.id)) {
-                return alert("the product is already added to the basket")
-            }
+
             state.cart = [...state.cart, action.payload];
         },
 

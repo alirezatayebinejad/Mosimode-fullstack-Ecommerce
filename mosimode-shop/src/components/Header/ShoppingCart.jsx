@@ -17,7 +17,8 @@ const ShoppingCart = () => {
 		cartItems.forEach((item) => {
 			lastPrice += item.count * item.product.price;
 		});
-		return lastPrice;
+
+		return Math.round(lastPrice * 100) / 100; //only two digit after dot
 	};
 	const deleteItemHandler = (item) => {
 		dispatch(removeFromCart(item));

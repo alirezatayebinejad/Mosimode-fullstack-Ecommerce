@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import styles from "./index.module.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ShopProducts from "@/components/Sections/ProductsLists";
 import PagesHeader from "@/components/Banner/PagesHeader";
-
 const Shop = ({ products }) => {
+	const router = useRouter();
 	const [selectedCategory, setSelectedCategory] = useState("");
 
 	const handleCategoryChange = (category) => {
 		setSelectedCategory(category);
 	};
-
+	useEffect(() => {
+		const { category } = router.query;
+		if (category) {
+			setSelectedCategory(category);
+		}
+	}, [router.query]);
 	return (
 		<>
 			<Head>

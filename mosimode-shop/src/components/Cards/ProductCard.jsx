@@ -4,15 +4,22 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Image from "next/image";
 import Link from "next/link";
 import generateStars from "../../utils/generateStars";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
-
+import { openPopup, closePopup } from "@/store/messagePopupSlice";
 const ProductCard = (product) => {
 	const dispatch = useDispatch();
-	const addToBasketHandler = () => {
+	const cartItems = useSelector((state) => state.cart.cart);
+
+	const addToBasketHandler = (product) => {
 		//we pull out the onClick part because of redux reasons
-		const { onClick, ...productData } = product;
-		dispatch(addToCart({ product: productData, count: 1 }));
+		if (cartItems.find((item) => item.product.id == product.id)) {
+			dispatch(openPopup({ message: "product is already added", mood: false }));
+		} else {
+			const { onClick, ...productData } = product;
+			dispatch(addToCart({ product: productData, count: 1 }));
+			dispatch(openPopup({ message: "product added to cart", mood: true }));
+		}
 	};
 	return (
 		<div className={styles.product_cart}>
@@ -23,7 +30,7 @@ const ProductCard = (product) => {
 			<h4 className={styles.text_limit}>{product.title}</h4>
 			<div className={styles.stars}>{generateStars(product.rating.rate)}</div>
 			<h4 className={styles.price}>${product.price}</h4>
-			<button className={styles.buy_icon} onClick={addToBasketHandler}>
+			<button className={styles.buy_icon} onClick={() => addToBasketHandler(product)}>
 				<ShoppingCartIcon />
 			</button>
 		</div>

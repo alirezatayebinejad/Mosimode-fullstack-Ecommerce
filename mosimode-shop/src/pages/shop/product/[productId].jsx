@@ -5,13 +5,15 @@ import Footer from "@/components/Footer/Footer";
 import Products from "@/components/Sections/Products";
 import Image from "next/image";
 import generateStars from "../../../utils/generateStars";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../store/cartSlice";
+import { openPopup } from "@/store/messagePopupSlice";
 
 const ProductPage = ({ product, productList }) => {
 	const dispatch = useDispatch();
 	const [userRating, setUserRating] = useState(5);
 	const rateInputRef = useRef(null);
+	const cartItems = useSelector((state) => state.cart.cart);
 
 	const ratingSubmitHandle = () => {
 		const userRate = parseInt(rateInputRef.current.value);
@@ -22,7 +24,12 @@ const ProductPage = ({ product, productList }) => {
 		//work of updating the product rating
 	};
 	const addToBasketHandler = () => {
-		dispatch(addToCart({ product, count: 1 }));
+		if (cartItems.find((item) => item.product.id == product.id)) {
+			dispatch(openPopup({ message: "product is already added", mood: false }));
+		} else {
+			dispatch(addToCart({ product, count: 1 }));
+			dispatch(openPopup({ message: "product added to cart", mood: true }));
+		}
 	};
 	if (product == null)
 		return (

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./Banner.module.css";
+import Link from "next/link";
 
 const Banner = () => {
 	return (
@@ -10,7 +11,9 @@ const Banner = () => {
 				<h2>
 					Discover the perfect blend <br /> of comfort and style.
 				</h2>
-				<button>Shop Now</button>
+				<Link href={"/shop"}>
+					<button>Shop Now</button>
+				</Link>
 			</div>
 		</div>
 	);
