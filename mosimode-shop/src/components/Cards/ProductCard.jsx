@@ -6,7 +6,8 @@ import Link from "next/link";
 import generateStars from "../../utils/generateStars";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
-import { openPopup, closePopup } from "@/store/messagePopupSlice";
+import { openPopup } from "@/store/messagePopupSlice";
+
 const ProductCard = (product) => {
 	const dispatch = useDispatch();
 	const cartItems = useSelector((state) => state.cart.cart);

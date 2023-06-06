@@ -18,7 +18,7 @@ const ProductPage = ({ product, productList }) => {
 	const ratingSubmitHandle = () => {
 		const userRate = parseInt(rateInputRef.current.value);
 		if (userRate > 5 || userRate < 0) {
-			alert("your rating should be in the range of 0 to 5");
+			dispatch(openPopup({ message: "your rating should be in the range of 0 to 5", mood: false }));
 			return;
 		}
 		//work of updating the product rating

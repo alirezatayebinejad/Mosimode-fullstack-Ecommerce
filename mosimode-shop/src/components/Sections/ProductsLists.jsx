@@ -8,7 +8,6 @@ const ProductsLists = ({ products, selectedCategory }) => {
 	useEffect(() => {
 		setCurrentPage(1); // Reset currentPage to 1 when selectedCategory changes
 	}, [selectedCategory]);
-
 	const router = useRouter();
 	const productsPerPage = 7;
 	const filteredProducts = selectedCategory ? products.filter((product) => product.category === selectedCategory) : products;
