@@ -1,9 +1,3 @@
-.shoppingcart {
-	display: none;
-}
-.showcart {
-	display: block;
-}
 .shoppingcartcontainer {
 	background-color: rgb(245, 245, 245);
 	width: 300px;
@@ -16,6 +10,30 @@
 	padding: 5px 10px;
 	z-index: 999;
 	overflow-y: auto;
+	animation: fade-in 0.2s ease-in-out;
+}
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+		transform: translateX(310px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0px);
+	}
+}
+.shoppingcartcontainer::-webkit-scrollbar-track {
+	display: none;
+}
+
+/* Customize the scrollbar thumb */
+.shoppingcartcontainer::-webkit-scrollbar-thumb {
+	display: none;
+}
+
+/* Optional: Customize the scrollbar width */
+.shoppingcartcontainer::-webkit-scrollbar {
+	display: none;
 }
 .cartbackground {
 	background-color: rgb(0, 0, 0);

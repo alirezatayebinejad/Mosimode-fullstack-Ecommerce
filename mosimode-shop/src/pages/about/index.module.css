@@ -1,0 +1,29 @@
+.container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 40px;
+}
+
+.heading {
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.subheading {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.content {
+	font-size: 16px;
+	line-height: 1.6;
+	margin-bottom: 20px;
+}
+
+.image {
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+}

@@ -5,6 +5,22 @@
 	--main-color-low-opacity: #08817917;
 	--main-color-mid-opacity: #08817934;
 }
+/* Customize the scrollbar thumb */
+/* Customize the scrollbar track */
+*::-webkit-scrollbar-track {
+	background-color: rgb(224, 224, 224);
+}
+
+/* Customize the scrollbar thumb */
+*::-webkit-scrollbar-thumb {
+	background-color: var(--main-color);
+	border-radius: 12px;
+}
+
+/* Optional: Customize the scrollbar width */
+*::-webkit-scrollbar {
+	width: 8px;
+}
 * {
 	margin: 0;
 	padding: 0;

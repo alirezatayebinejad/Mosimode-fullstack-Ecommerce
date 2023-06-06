@@ -6,7 +6,7 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ShopProducts from "@/components/Sections/ProductsLists";
 import PagesHeader from "@/components/Banner/PagesHeader";
-const Shop = ({ products }) => {
+const ShopPage = ({ products }) => {
 	const router = useRouter();
 	const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -70,4 +70,4 @@ export async function getServerSideProps() {
 	};
 }
 
-export default Shop;
+export default ShopPage;

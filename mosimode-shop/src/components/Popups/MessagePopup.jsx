@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { closePopup } from "../../store/messagePopupSlice";
 import styles from "./MessagePopup.module.css";
@@ -18,7 +18,7 @@ const MessagePopup = () => {
 
 			return () => clearTimeout(timeout);
 		}
-	}, [showPopup, dispatch]);
+	}, [showPopup]);
 
 	if (!showPopup) {
 		return null; // Don't render the popup if showPopup is false
@@ -33,7 +33,12 @@ const MessagePopup = () => {
 				</div>
 				<h3>{message}</h3>
 			</div>
-			<div className={styles.closebtn} onClick={() => dispatch(closePopup())}>
+			<div
+				className={styles.closebtn}
+				onClick={() => {
+					return dispatch(closePopup());
+				}}
+			>
 				<CloseIcon />
 			</div>
 		</section>

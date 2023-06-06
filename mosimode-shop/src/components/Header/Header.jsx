@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsCartOpen } from "../../store/cartSlice";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import SearchIcon from "@mui/icons-material/Search";
@@ -16,6 +16,8 @@ const Header = () => {
 	const router = useRouter();
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
+	const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+	const cartCount = useSelector((state) => state.cart.cart.length);
 
 	return (
 		<header>
@@ -73,7 +75,8 @@ const Header = () => {
 						<li onClick={() => setIsSearchOpen(true)}>
 							<SearchIcon />
 						</li>
-						<li onClick={() => dispatch(setIsCartOpen({}))}>
+						<li className={styles.shoppingIcon_li} onClick={() => dispatch(setIsCartOpen({}))}>
+							{cartCount > 0 && <span>{cartCount}</span>}
 							<ShoppingBasketIcon />
 						</li>
 						<li>
@@ -82,7 +85,7 @@ const Header = () => {
 					</div>
 				</div>
 			</div>
-			<ShoppingCart />
+			{isCartOpen && <ShoppingCart />}
 			{isSearchOpen && <SearchPopup setIsSearchOpen={setIsSearchOpen} />}
 		</header>
 	);

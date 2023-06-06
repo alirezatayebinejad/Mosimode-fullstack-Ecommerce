@@ -6,13 +6,18 @@ import Link from "next/link";
 import generateStars from "../../utils/generateStars";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
-import { openPopup } from "@/store/messagePopupSlice";
+import { closePopup, openPopup } from "@/store/messagePopupSlice";
 
 const ProductCard = (product) => {
 	const dispatch = useDispatch();
 	const cartItems = useSelector((state) => state.cart.cart);
 
-	const addToBasketHandler = (product) => {
+	const addToBasketHandler = async (product) => {
+		await new Promise((resolve) => {
+			dispatch(closePopup());
+			resolve();
+		});
+
 		//we pull out the onClick part because of redux reasons
 		if (cartItems.find((item) => item.product.id == product.id)) {
 			dispatch(openPopup({ message: "product is already added", mood: false }));

@@ -6,7 +6,7 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ShopProducts from "@/components/Sections/ProductsLists";
 
-const index = ({ products }) => {
+const SearchPage = ({ products }) => {
 	console.log("products", products);
 	const router = useRouter();
 	const searchTerm = router.query.search;
@@ -47,4 +47,4 @@ export async function getServerSideProps() {
 	};
 }
 
-export default index;
+export default SearchPage;

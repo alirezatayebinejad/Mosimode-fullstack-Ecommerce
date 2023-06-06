@@ -7,7 +7,7 @@ import Image from "next/image";
 import generateStars from "../../../utils/generateStars";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../store/cartSlice";
-import { openPopup } from "@/store/messagePopupSlice";
+import { openPopup, closePopup } from "@/store/messagePopupSlice";
 
 const ProductPage = ({ product, productList }) => {
 	const dispatch = useDispatch();
@@ -23,7 +23,11 @@ const ProductPage = ({ product, productList }) => {
 		}
 		//work of updating the product rating
 	};
-	const addToBasketHandler = () => {
+	const addToBasketHandler = async () => {
+		await new Promise((resolve) => {
+			dispatch(closePopup());
+			resolve();
+		});
 		if (cartItems.find((item) => item.product.id == product.id)) {
 			dispatch(openPopup({ message: "product is already added", mood: false }));
 		} else {

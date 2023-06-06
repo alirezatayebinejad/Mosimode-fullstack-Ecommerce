@@ -9,7 +9,6 @@ import Link from "next/link";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
-	const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 	const cartItems = useSelector((state) => state.cart.cart);
 
 	const pricCalculator = () => {
@@ -50,7 +49,7 @@ const ShoppingCart = () => {
 	};
 
 	return (
-		<div className={`${styles.shoppingcart} ${isCartOpen ? styles.showcart : ""}`}>
+		<div className={styles.shoppingcart}>
 			<div className={styles.cartbackground} onClick={() => dispatch(setIsCartOpen({}))}></div>
 			<div className={styles.shoppingcartcontainer}>
 				<div className={styles.closebtn} onClick={() => dispatch(setIsCartOpen({}))}>
