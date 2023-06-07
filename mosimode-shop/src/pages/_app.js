@@ -1,13 +1,16 @@
-import '@/styles/globals.css'
+import '@/styles/globals.css';
 import { store } from "../store/store";
 import { Provider } from "react-redux";
 import MessagePopup from '@/components/Popups/MessagePopup';
+import { SessionProvider } from 'next-auth/react';
 
 export default function App({ Component, pageProps }) {
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-      <MessagePopup />
-    </Provider>
+    <SessionProvider>
+      <Provider store={store}>
+        <Component {...pageProps} />
+        <MessagePopup />
+      </Provider>
+    </SessionProvider>
   )
 }
