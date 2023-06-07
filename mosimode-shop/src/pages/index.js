@@ -10,13 +10,13 @@ export default function Home({ products }) {
   return (
     <>
       <Head>
-        <title>mosimode</title>
+        <title>mosimode shop</title>
         <meta name="description" content="mosimode ecommerce website" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header />
       <main >
-        <Header />
         <div>
           <Banner />
           <Features />

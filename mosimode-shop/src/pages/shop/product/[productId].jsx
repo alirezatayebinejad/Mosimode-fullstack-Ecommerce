@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import styles from "./[productId].module.css";
+import Head from "next/head";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import Products from "@/components/Sections/Products";
@@ -48,34 +49,42 @@ const ProductPage = ({ product, productList }) => {
 
 	return (
 		<>
+			<Head>
+				<title>{product.title} | mosimode</title>
+				<meta name="description" content={`product:${product.title}`} />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
 			<Header />
-			<section className={styles.section}>
-				<div className={styles.product_container}>
-					<div className={styles.product_image}>
-						<Image className={styles.product_picture} src={product.image} alt={product.title} width={1080} height={1350} priority />
-					</div>
-					<div className={styles.product_info}>
-						<h3>{product.title}</h3>
-						<p className={styles.category}>category: {product.category}</p>
-						<div className={styles.stars}>
-							{generateStars(product.rating.rate)}
-							<br />
-
-							<div className={styles.rateit}>
-								rate:
-								<input type="number" min="0" max="5" value={userRating} ref={rateInputRef} onChange={(e) => setUserRating(e.target.value)} />
-								<button onClick={ratingSubmitHandle}>ok</button>
-							</div>
+			<main>
+				<section className={styles.section}>
+					<div className={styles.product_container}>
+						<div className={styles.product_image}>
+							<Image className={styles.product_picture} src={product.image} alt={product.title} width={1080} height={1350} priority />
 						</div>
-						<p className={styles.price}>${product.price}</p>
-						<p className={styles.description}>description: {product.description}</p>
-						<button className={styles.addtobasket_btn} onClick={addToBasketHandler}>
-							Add To Basket
-						</button>
+						<div className={styles.product_info}>
+							<h3>{product.title}</h3>
+							<p className={styles.category}>category: {product.category}</p>
+							<div className={styles.stars}>
+								{generateStars(product.rating.rate)}
+								<br />
+
+								<div className={styles.rateit}>
+									rate:
+									<input type="number" min="0" max="5" value={userRating} ref={rateInputRef} onChange={(e) => setUserRating(e.target.value)} />
+									<button onClick={ratingSubmitHandle}>ok</button>
+								</div>
+							</div>
+							<p className={styles.price}>${product.price}</p>
+							<p className={styles.description}>description: {product.description}</p>
+							<button className={styles.addtobasket_btn} onClick={addToBasketHandler}>
+								Add To Basket
+							</button>
+						</div>
 					</div>
-				</div>
-			</section>
-			<Products products={productList} title="more products" />
+				</section>
+				<Products products={productList} title="more products" />
+			</main>
 			<Footer />
 		</>
 	);
