@@ -1,0 +1,102 @@
+.logo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: black;
+}
+.logo_image {
+	border-radius: 50%;
+	cursor: pointer;
+	margin: 0 0 5px 0;
+}
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+	animation: fade-in 0.5s ease;
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.form {
+	width: 300px;
+	margin-top: 50px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 12px;
+	animation: fade-in 0.5s ease;
+}
+
+.heading {
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.input {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
+.button {
+	width: 100%;
+	background-color: var(--main-color);
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+}
+
+.button:hover {
+	background-color: var(--main-color-darker);
+}
+
+.message {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.message a {
+	color: var(--main-color);
+	text-decoration: none;
+}
+
+.message a:hover {
+	text-decoration: underline;
+}
+.logout_btn {
+	background-color: rgb(243, 64, 64);
+	padding: 5px 10px;
+	border: none;
+	border-radius: 12px;
+	color: white;
+	cursor: pointer;
+	transition: 0.3s;
+}
+.logout_btn:hover {
+	background-color: rgb(226, 49, 49);
+}
