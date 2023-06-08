@@ -54,9 +54,6 @@
 	padding: 20px 0;
 	border-bottom: 1px solid rgb(126, 126, 126);
 }
-.list_nav ul li:hover {
-	background-color: rgb(199, 199, 199);
-}
 .list_nav ul li a {
 	color: black;
 }
@@ -66,6 +63,10 @@
 .showmenu {
 	display: block;
 }
+.active {
+	background-color: var(--main-color);
+}
+
 @media screen and (max-width: 550px) {
 	.burgermenu {
 		display: block;
