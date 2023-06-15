@@ -26,7 +26,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/valid.jsx", "src/pages/register/index.jsx"  ],
+, "src/pages/valid.jsx", "src/pages/register/index.jsx", "src/pages/api/register.js", "src/pages/api/auth/[...nextauth].js"  ],
   "exclude": [
     "node_modules"
   ]

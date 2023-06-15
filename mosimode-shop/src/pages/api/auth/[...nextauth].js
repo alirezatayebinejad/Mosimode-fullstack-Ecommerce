@@ -1,6 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient, User } from "@prisma/client";
-import { AuthOptions } from "next-auth";
+import { PrismaClient } from "@prisma/client";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
@@ -12,7 +11,7 @@ const loginUserSchema = z.object({
 });
 const prisma = new PrismaClient();
 
-const authOptions: AuthOptions = {
+const authOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		CredentialsProvider({
@@ -45,7 +44,7 @@ const authOptions: AuthOptions = {
 			if (account) {
 				token.accessToken = account.access_token;
 				token.id = user.id;
-				token.username = (user as User).username;
+				token.username = user.username;
 				console.log({ user });
 			}
 			return token;

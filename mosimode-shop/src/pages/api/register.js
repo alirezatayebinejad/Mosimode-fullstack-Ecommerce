@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 
@@ -9,7 +8,7 @@ const registerUserSchema = z.object({
 });
 const prisma = new PrismaClient();
 
-export default async function registerUser(req: NextApiRequest, res: NextApiResponse) {
+export default async function registerUser(req, res) {
 	const { username, password } = registerUserSchema.parse(req.body);
 	const user = await prisma.user.findUnique({
 		where: { username },
