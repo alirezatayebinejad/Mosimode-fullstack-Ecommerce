@@ -10,48 +10,107 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  username      String    @unique
-  password      String
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id          String   @id @default(uuid())
+  name        String?
+  username    String   @unique
+  password    String
+  email       String?
+  phoneNumber String?
+  cart        Cart?    @relation(fields: [cartId], references: [id])
+  cartId      String?  @unique
+  orders      Order[]
+  createdAt   DateTime @default(now())
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+model AnonymousUser {
+  id          String  @id @default(uuid())
+  phoneNumber String?
+  cart        Cart?   @relation(fields: [cartId], references: [id])
+  cartId      String? @unique
 
-  @@unique([identifier, token])
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id        Int              @id @default(autoincrement())
+  title     String
+  image     String
+  price     Float
+  rate      Float            @default(0.0)
+  rateCount Int              @default(0)
+  options   ProductOptions[]
+  category  Category[]       @relation("ProductsCategories")
+  tags      Tags[]           @relation("ProductsTags")
+  carts     Cart[]           @relation("CartProducts")
+  createdAt DateTime         @default(now())
+  OrderItem OrderItem[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[] @relation("ProductsCategories")
+}
+
+model Tags {
+  id       Int       @id @default(autoincrement())
+  name     String?
+  products Product[] @relation("ProductsTags")
+}
+
+model ProductOptions {
+  id        Int     @id @default(autoincrement())
+  name      String?
+  value     String?
+  Product   Product @relation(fields: [ProductId], references: [id])
+  ProductId Int
+}
+
+model Cart {
+  id            String         @id @default(uuid())
+  products      Product[]      @relation("CartProducts")
+  user          User?
+  anonymousUser AnonymousUser?
+  createdAt     DateTime       @default(now())
+}
+
+model Order {
+  id             String         @id @default(uuid())
+  totalAmount    Float
+  user           User?          @relation(fields: [userId], references: [id])
+  userId         String?
+  items          OrderItem[]
+  name           String
+  phonenumber    String
+  telephone      String?
+  state          String
+  city           String
+  address        String
+  postalcode     String?
+  message        String?
+  deliveryMethod DeliveryMethod
+  paymentStatus  PaymentStatus  @default(PENDING)
+  createdAt      DateTime       @default(now())
+}
+
+enum DeliveryMethod {
+  POST
+  RESERVED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  PREPAID
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  price     Float
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  Order     Order?  @relation(fields: [orderId], references: [id])
+  orderId   String?
 }
