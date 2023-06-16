@@ -24,12 +24,11 @@ model User {
 }
 
 model AnonymousUser {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   phoneNumber String?
-  cart        Cart?   @relation(fields: [cartId], references: [id])
-  cartId      String? @unique
-
-  createdAt DateTime @default(now())
+  cart        Cart?    @relation(fields: [cartId], references: [id])
+  cartId      String?  @unique
+  createdAt   DateTime @default(now())
 }
 
 model Product {
@@ -42,7 +41,8 @@ model Product {
   options   ProductOptions[]
   category  Category[]       @relation("ProductsCategories")
   tags      Tags[]           @relation("ProductsTags")
-  carts     Cart[]           @relation("CartProducts")
+  //carts     Cart[]           @relation("CartProducts")
+  cartItems CartItem[]
   createdAt DateTime         @default(now())
   OrderItem OrderItem[]
 }
@@ -69,10 +69,19 @@ model ProductOptions {
 
 model Cart {
   id            String         @id @default(uuid())
-  products      Product[]      @relation("CartProducts")
+  cartItems     CartItem[]
   user          User?
   anonymousUser AnonymousUser?
   createdAt     DateTime       @default(now())
+}
+
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
+  Cart      Cart?    @relation(fields: [cartId], references: [id])
+  cartId    String?
+  quantity  Int      @default(1)
 }
 
 model Order {
