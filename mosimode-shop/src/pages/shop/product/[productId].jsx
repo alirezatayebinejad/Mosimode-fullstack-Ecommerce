@@ -9,12 +9,17 @@ import generateStars from "../../../utils/generateStars";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../store/cartSlice";
 import { openPopup, closePopup } from "@/store/messagePopupSlice";
+import { useSession } from "next-auth/react";
+import axios from "axios";
 
 const ProductPage = ({ product, productList }) => {
+	const { data, status } = useSession();
+	const isAuthenticated = status === "unauthenticated" && data === null ? false : true;
 	const dispatch = useDispatch();
 	const [userRating, setUserRating] = useState(5);
 	const rateInputRef = useRef(null);
 	const cartItems = useSelector((state) => state.cart.cart);
+	const [btndisable, setBtndisable] = useState(false);
 
 	const ratingSubmitHandle = () => {
 		const userRate = parseInt(rateInputRef.current.value);
@@ -25,16 +30,38 @@ const ProductPage = ({ product, productList }) => {
 		//work of updating the product rating
 	};
 	const addToBasketHandler = async () => {
+		setBtndisable(true);
+
 		await new Promise((resolve) => {
 			dispatch(closePopup());
 			resolve();
 		});
+		let anonymousUserID = localStorage.getItem("anonymousUserID");
 		if (cartItems.find((item) => item.product.id == product.id)) {
 			dispatch(openPopup({ message: "product is already added", mood: false }));
 		} else {
-			dispatch(addToCart({ product, count: 1 }));
+			if (!isAuthenticated && anonymousUserID === null) {
+				// Handle anonymous user
+				try {
+					const response = await axios.post("/api/anonymousUser", { action: "create" });
+					const data = response.data;
+					localStorage.setItem("anonymousUserID", data.anonymousUser.id);
+					anonymousUserID = localStorage.getItem("anonymousUserID");
+				} catch (error) {
+					console.error("Error creating anonymous user:", error);
+				}
+			}
+			// Adding to cart
+			// We pull out the onClick part because of Redux reasons
+			const { onClick, ...productData } = product;
+			const options = isAuthenticated
+				? { product: productData, count: 1, userType: "authuser", anonymousUserUuid: undefined, userId: data.user.id }
+				: { product: productData, count: 1, userType: "anonymous", anonymousUserUuid: anonymousUserID, userId: undefined };
+			dispatch(addToCart(options));
 			dispatch(openPopup({ message: "product added to cart", mood: true }));
 		}
+
+		setBtndisable(false);
 	};
 	if (product == null)
 		return (
@@ -77,7 +104,7 @@ const ProductPage = ({ product, productList }) => {
 							</div>
 							<p className={styles.price}>${product.price}</p>
 							<p className={styles.description}>description: {product.description}</p>
-							<button className={styles.addtobasket_btn} onClick={addToBasketHandler}>
+							<button className={styles.addtobasket_btn} onClick={addToBasketHandler} disabled={btndisable}>
 								Add To Basket
 							</button>
 						</div>

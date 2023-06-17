@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
     isCartOpen: false,
@@ -11,17 +12,23 @@ export const cartSlice = createSlice({
     reducers: {
 
         addToCart: (state, action) => {
-
-            state.cart = [...state.cart, action.payload];
+            const { userId, anonymousUserUuid, product, count } = action.payload;
+            console.log("userId", userId, "anonymousUserUuid", anonymousUserUuid, 'product', product, "count", count);
+            axios.post("/api/cartCRUD", { action: "add", userId, anonymousUserUuid, productId: product.id })
+            state.cart = [...state.cart, { product, count }];
         },
 
         removeFromCart: (state, action) => {
-            state.cart = state.cart.filter((item) => item.product.id !== action.payload.product.id);
+            const { userId, anonymousUserUuid, productId } = action.payload;
+            axios.post("/api/cartCRUD", { action: "remove", userId, anonymousUserUuid, productId })
+            state.cart = state.cart.filter((item) => item.product.id !== productId);
         },
 
         increaseCount: (state, action) => {
+            const { userId, anonymousUserUuid, productId } = action.payload;
+            axios.post("/api/cartCRUD", { action: "increase", userId, anonymousUserUuid, productId })
             state.cart = state.cart.map((item) => {
-                if (item.product.id === action.payload.product.id) {
+                if (item.product.id === productId) {
                     item.count++;
                 }
                 return item;
@@ -29,8 +36,10 @@ export const cartSlice = createSlice({
         },
 
         decreaseCount: (state, action) => {
+            const { userId, anonymousUserUuid, productId } = action.payload;
+            axios.post("/api/cartCRUD", { action: "decrease", userId, anonymousUserUuid, productId })
             state.cart = state.cart.map((item) => {
-                if (item.product.id === action.payload.product.id && item.count > 1) {
+                if (item.product.id === productId && item.count > 1) {
                     item.count--;
                 }
                 return item;

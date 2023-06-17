@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ShoppingCart.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -6,10 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsCartOpen, removeFromCart, increaseCount, decreaseCount } from "../../store/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
 	const cartItems = useSelector((state) => state.cart.cart);
+	const { data, status } = useSession();
+	const isAuthenticated = status === "unauthenticated" && data === null ? false : true;
+	const [btndisable, setBtndisable] = useState(false);
 
 	const pricCalculator = () => {
 		let lastPrice = 0;
@@ -19,10 +23,32 @@ const ShoppingCart = () => {
 
 		return Math.round(lastPrice * 100) / 100; //only two digit after dot
 	};
-	const deleteItemHandler = (item) => {
-		dispatch(removeFromCart(item));
-	};
 
+	let handlersConfig = (item) => {
+		let anonymousUserID = localStorage.getItem("anonymousUserID");
+		const options = isAuthenticated
+			? { productId: item.product.id, anonymousUserUuid: undefined, userId: data.user.id }
+			: { productId: item.product.id, anonymousUserUuid: anonymousUserID, userId: undefined };
+		return options;
+	};
+	const deleteItemHandler = (item) => {
+		setBtndisable(true);
+		const options = handlersConfig(item);
+		dispatch(removeFromCart(options));
+		setBtndisable(false);
+	};
+	const increaseHandler = (item) => {
+		setBtndisable(true);
+		const options = handlersConfig(item);
+		dispatch(increaseCount(options));
+		setBtndisable(false);
+	};
+	const decreaseHandler = (item) => {
+		setBtndisable(true);
+		const options = handlersConfig(item);
+		dispatch(decreaseCount(options));
+		setBtndisable(false);
+	};
 	const generateCartItems = () => {
 		const items = cartItems.map((item) => (
 			<section key={item.product.id}>
@@ -36,10 +62,14 @@ const ShoppingCart = () => {
 						<p>
 							count: <span>{item.count}</span>
 						</p>
-						<button onClick={() => dispatch(increaseCount(item))}>+</button>
-						<button onClick={() => dispatch(decreaseCount(item))}>-</button>
+						<button onClick={() => increaseHandler(item)} disabled={btndisable}>
+							+
+						</button>
+						<button onClick={() => decreaseHandler(item)} disabled={btndisable}>
+							-
+						</button>
 					</div>
-					<button className={styles.delete_btn} onClick={() => deleteItemHandler(item)}>
+					<button className={styles.delete_btn} onClick={() => deleteItemHandler(item)} disabled={btndisable}>
 						<DeleteForeverIcon sx={{ color: "#ff5959" }} />
 					</button>
 				</div>
