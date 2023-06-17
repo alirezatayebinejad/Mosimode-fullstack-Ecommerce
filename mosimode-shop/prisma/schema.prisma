@@ -32,19 +32,20 @@ model AnonymousUser {
 }
 
 model Product {
-  id        Int              @id @default(autoincrement())
-  title     String
-  image     String
-  price     Float
-  rate      Float            @default(0.0)
-  rateCount Int              @default(0)
-  options   ProductOptions[]
-  category  Category[]       @relation("ProductsCategories")
-  tags      Tags[]           @relation("ProductsTags")
+  id          Int              @id @default(autoincrement())
+  title       String
+  image       String
+  price       Float
+  rate        Float            @default(0.0)
+  rateCount   Int              @default(0)
+  description String
+  options     ProductOptions[]
+  category    Category[]       @relation("ProductsCategories")
+  tags        Tags[]           @relation("ProductsTags")
   //carts     Cart[]           @relation("CartProducts")
-  cartItems CartItem[]
-  createdAt DateTime         @default(now())
-  OrderItem OrderItem[]
+  cartItems   CartItem[]
+  createdAt   DateTime         @default(now())
+  OrderItem   OrderItem[]
 }
 
 model Category {
