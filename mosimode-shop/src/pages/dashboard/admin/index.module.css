@@ -1,0 +1,57 @@
+.container {
+	display: flex;
+}
+
+.sidebar {
+	flex: 0 0 auto;
+	background: #f0f0f0;
+	padding: 20px;
+	width: 200px;
+	height: 100vh;
+	overflow-y: auto;
+}
+.sidebar_header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.sidebar_header h3 {
+	margin-top: 10px;
+}
+.tabList {
+	list-style-type: none;
+	padding: 0;
+	margin: 20px 0 0 0;
+}
+
+.tabListItem {
+	cursor: pointer;
+	padding: 10px 10px;
+	margin-bottom: 10px;
+	background: #fff;
+	border-radius: 4px;
+	transition: background 0.3s;
+}
+
+.tabListItem:hover {
+	background: var(--main-color-mid-opacity);
+	color: #000;
+}
+
+.activeTab {
+	background: var(--main-color);
+	color: #fff;
+}
+
+.content {
+	flex: 1;
+	padding: 20px;
+}
+
+.tabContent {
+	background: #fff;
+	border-radius: 12px;
+	padding: 20px;
+	border: solid 1px rgb(214, 214, 214);
+}
