@@ -29,10 +29,11 @@ export default function App({ Component, pageProps }) {
   return (
     <SessionProvider>
       <Provider store={store}>
-        {loading ? <Loading spinnerType={"progress"} /> : null}
+        {loading ? <Loading spinnerType={"spinner1"} /> : null}
         <Component {...pageProps} />
         <MessagePopup />
       </Provider>
     </SessionProvider>
+
   )
 }

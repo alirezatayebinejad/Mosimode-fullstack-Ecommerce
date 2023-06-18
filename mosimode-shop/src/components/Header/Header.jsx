@@ -1,5 +1,5 @@
 import styles from "./Header.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import BurgerMenu from "./BurgerMenu";
 import ShoppingCart from "./ShoppingCart";
 import SearchPopup from "../Popups/SearchPopup";
 import { useSession } from "next-auth/react";
+import { fetchCart } from "../../store/cartSlice";
 
 const Header = () => {
 	const { data, status } = useSession();
@@ -21,6 +22,16 @@ const Header = () => {
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
 	const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 	const cartCount = useSelector((state) => state.cart.cart.length);
+	const isAuthenticated = status === "authenticated" && data ? true : false;
+
+	useEffect(() => {
+		const anonymousUserUuid = localStorage.getItem("anonymousUserID");
+		if (isAuthenticated) {
+			dispatch(fetchCart({ userId: data.user.id, anonymousUserUuid: undefined }));
+		} else if (!isAuthenticated && status !== "loading") {
+			dispatch(fetchCart({ userId: undefined, anonymousUserUuid }));
+		}
+	}, [status]);
 
 	return (
 		<header>

@@ -1,10 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
     isCartOpen: false,
     cart: [],
 };
+
+// Async thunk to fetch the cart data
+export const fetchCart = createAsyncThunk("cart/fetchCart", async ({ userId, anonymousUserUuid }) => {
+    const response = await axios.get("/api/cartCRUD", { params: { userId, anonymousUserUuid } });
+    return response.data.cart;
+});
 
 export const cartSlice = createSlice({
     name: "cart",
@@ -13,7 +19,6 @@ export const cartSlice = createSlice({
 
         addToCart: (state, action) => {
             const { userId, anonymousUserUuid, product, count } = action.payload;
-            console.log("userId", userId, "anonymousUserUuid", anonymousUserUuid, 'product', product, "count", count);
             axios.post("/api/cartCRUD", { action: "add", userId, anonymousUserUuid, productId: product.id })
             state.cart = [...state.cart, { product, count }];
         },
@@ -49,6 +54,12 @@ export const cartSlice = createSlice({
         setIsCartOpen: (state) => {
             state.isCartOpen = !state.isCartOpen;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchCart.fulfilled, (state, action) => {
+            const products = action.payload.map(item => { return { product: item.Product, count: item.quantity } })
+            state.cart = products;
+        });
     },
 });
 
