@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./ProductsLists.module.css";
 import { useRouter } from "next/router";
 import ProductCard from "@/components/Cards/ProductCard";
@@ -24,14 +24,19 @@ const ProductsLists = ({ products, selectedCategory }) => {
 		}
 		return numbers;
 	};
+
+	const productsRef = useRef(null); //the top element
 	const paginate = (pageNumber) => {
 		setCurrentPage(pageNumber);
+		if (productsRef.current) {
+			productsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+		}
 	};
 	const handleProductClick = (productId) => {
 		router.push(`/shop/${productId}`);
 	};
 	return (
-		<section className={styles.productslists}>
+		<section className={styles.productslists} ref={productsRef}>
 			<div className={styles.products}>
 				{currentProducts.map((product) => (
 					<ProductCard
