@@ -28,7 +28,7 @@ export default async function handleCart(req, res) {
                 if (!user) {
                     return res.status(404).json({ message: "User not found" });
                 }
-                cart = user.cart.cartItems;
+                cart = user.cart?.cartItems;
             } else if (query.anonymousUserUuid) {
                 const anonymousUser = await prisma.anonymousUser.findUnique({
                     where: { id: query.anonymousUserUuid },
@@ -47,7 +47,7 @@ export default async function handleCart(req, res) {
                 if (!anonymousUser) {
                     return res.status(404).json({ message: "Anonymous user not found" });
                 }
-                cart = anonymousUser.cart.cartItems;
+                cart = anonymousUser.cart?.cartItems;
             }
 
             if (!cart) {
