@@ -90,7 +90,7 @@ const AddProductTab = () => {
 							id="options"
 							value={options}
 							onChange={(e) => {
-								setOptions(e.target.value.split(","));
+								setOptions(e.target.value.split(/[,،]/));
 							}}
 						/>
 					</label>
@@ -103,7 +103,7 @@ const AddProductTab = () => {
 							id="tags"
 							value={tags}
 							onChange={(e) => {
-								setTags(e.target.value.split(","));
+								setTags(e.target.value.split(/[,،]/));
 							}}
 						/>
 					</label>
@@ -116,7 +116,7 @@ const AddProductTab = () => {
 							id="categories"
 							value={categories}
 							onChange={(e) => {
-								setCategories(e.target.value.split(","));
+								setCategories(e.target.value.split(/[,،]/));
 							}}
 							required
 						/>
