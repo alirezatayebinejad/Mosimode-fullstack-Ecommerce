@@ -17,8 +17,7 @@ model User {
   password    String
   email       String?
   phoneNumber String?
-  cart        Cart?    @relation(fields: [cartId], references: [id])
-  cartId      String?  @unique
+  cart        Cart?
   orders      Order[]
   createdAt   DateTime @default(now())
 }
@@ -26,26 +25,35 @@ model User {
 model AnonymousUser {
   id          String   @id @default(uuid())
   phoneNumber String?
-  cart        Cart?    @relation(fields: [cartId], references: [id])
-  cartId      String?  @unique
+  cart        Cart?
   createdAt   DateTime @default(now())
 }
 
+model Cart {
+  id              String         @id @default(uuid())
+  user            User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String?        @unique
+  anonymousUser   AnonymousUser? @relation(fields: [anonymousUserId], references: [id], onDelete: Cascade)
+  anonymousUserId String?        @unique
+  cartItems       CartItem[]
+  createdAt       DateTime       @default(now())
+}
+
 model Product {
-  id          Int              @id @default(autoincrement())
-  title       String
-  image       String
-  price       Float
-  rate        Float            @default(0.0)
-  rateCount   Int              @default(0)
-  description String
-  options     ProductOptions[]
-  category    Category[]       @relation("ProductsCategories")
-  tags        Tags[]           @relation("ProductsTags")
-  //carts     Cart[]           @relation("CartProducts")
-  cartItems   CartItem[]
-  createdAt   DateTime         @default(now())
-  OrderItem   OrderItem[]
+  id            Int              @id @default(autoincrement())
+  productCounts Int              @default(0)
+  title         String
+  image         String
+  price         Float
+  rate          Float            @default(0.0)
+  rateCount     Int              @default(0)
+  description   String           @db.VarChar(250)
+  options       ProductOptions[]
+  category      Category[]       @relation("ProductsCategories")
+  tags          Tags[]           @relation("ProductsTags")
+  cartItems     CartItem[]
+  createdAt     DateTime         @default(now())
+  OrderItem     OrderItem[]
 }
 
 model Category {
@@ -64,23 +72,17 @@ model ProductOptions {
   id        Int     @id @default(autoincrement())
   name      String?
   value     String?
-  Product   Product @relation(fields: [ProductId], references: [id])
+  Product   Product @relation(fields: [ProductId], references: [id], onDelete: Cascade)
   ProductId Int
 }
 
-model Cart {
-  id            String         @id @default(uuid())
-  cartItems     CartItem[]
-  user          User?
-  anonymousUser AnonymousUser?
-  createdAt     DateTime       @default(now())
-}
+//////////////
 
 model CartItem {
   id        Int      @id @default(autoincrement())
-  Product   Product? @relation(fields: [productId], references: [id])
+  Product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int?
-  Cart      Cart?    @relation(fields: [cartId], references: [id])
+  Cart      Cart?    @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId    String?
   quantity  Int      @default(1)
 }
@@ -121,6 +123,6 @@ model OrderItem {
   price     Float
   product   Product @relation(fields: [productId], references: [id])
   productId Int
-  Order     Order?  @relation(fields: [orderId], references: [id])
+  Order     Order?  @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId   String?
 }
