@@ -40,10 +40,14 @@ const ProductsTab = () => {
 		<h3>Loading...</h3>
 	) : (
 		<div className={styles.container}>
+			<div className={styles.countProducts}>
+				<p>total products: {products.length}</p>
+			</div>
 			{products.map((product) => (
 				<div key={product.id} className={styles.product_card}>
 					<div className={styles.product_card_info}>
 						<img src={product.image} alt="" />
+						<h4>{product.id}</h4>
 						<div>
 							<h3>{product.title}</h3>
 							<h3>{product.category[0]?.name}</h3>
