@@ -1,0 +1,30 @@
+.countUsers p {
+	background-color: rgb(243, 243, 243);
+	display: inline-block;
+	padding: 5px;
+	border-radius: 12px;
+	margin: 0 0 12px 0;
+}
+.userCard {
+	border: none;
+	border-radius: 12px;
+	padding: 10px;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgb(241, 241, 241);
+	transition: background-color 0.3s;
+}
+.userCard:hover {
+	background-color: rgb(231, 231, 231);
+}
+.userCard button {
+	margin-top: 10px;
+	background-color: #f44336;
+	color: white;
+	border: none;
+	border-radius: 12px;
+	padding: 5px 10px;
+	cursor: pointer;
+}

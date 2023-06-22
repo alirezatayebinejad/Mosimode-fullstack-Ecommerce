@@ -1,0 +1,76 @@
+.ordersTab {
+	width: 100%;
+}
+
+.orderList {
+	list-style: none;
+	padding: 0;
+}
+
+.orders {
+	margin-bottom: 20px;
+	border: none;
+	padding: 10px;
+	background-color: rgb(247, 247, 247);
+	border-radius: 15px;
+}
+.orderHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 10px;
+	border-bottom: solid 2px rgb(187, 187, 187);
+}
+.orderDetails {
+	margin-bottom: 10px;
+}
+
+.orderId {
+	font-weight: bold;
+}
+
+.orderAmount {
+	margin-top: 5px;
+}
+.orderItem {
+	display: flex;
+	justify-content: space-between;
+	background-color: rgb(233, 233, 233);
+	border-radius: 15px;
+	margin-top: 10px;
+	padding: 8px;
+}
+.orderItems {
+	margin-top: 10px;
+}
+
+.orderItemList {
+	list-style: none;
+	padding: 0;
+}
+
+.itemName {
+	font-weight: bold;
+}
+
+.itemPrice {
+	margin-top: 5px;
+}
+
+.itemQuantity {
+	margin-top: 5px;
+	font-style: italic;
+}
+
+.orderAddress {
+	margin-top: 10px;
+}
+
+.addressLine {
+	margin-top: 5px;
+}
+
+.noOrders {
+	text-align: center;
+	font-style: italic;
+}
