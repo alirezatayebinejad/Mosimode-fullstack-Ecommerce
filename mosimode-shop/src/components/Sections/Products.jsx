@@ -15,7 +15,7 @@ const products = ({ products, title }) => {
 				</div>
 				<div className={styles.products_items}>
 					{products?.map((item, index) => (
-						<ProductCard key={item.id} {...products[index]} />
+						<ProductCard key={item.id} product={item} />
 					))}
 				</div>
 			</section>

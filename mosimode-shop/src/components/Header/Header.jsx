@@ -57,16 +57,16 @@ const Header = () => {
 								{isDropdownOpen && (
 									<ul>
 										<li>
-											<Link href="/shop?category=men's clothing">Men's Clothing</Link>
+											<Link href="/shop?category=پیرهن">پیرهن</Link>
 										</li>
 										<li>
-											<Link href="/shop?category=women's clothing">Women's Clothing</Link>
+											<Link href="/shop?category=تیشرت">تیشرت</Link>
 										</li>
 										<li>
-											<Link href="/shop?category=electronics">Electronics</Link>
+											<Link href="/shop?category=کاپشن">کاپشن</Link>
 										</li>
 										<li>
-											<Link href="/shop?category=jewelery">Jewelery</Link>
+											<Link href="/shop?category=سویشرت">سویشرت</Link>
 										</li>
 									</ul>
 								)}

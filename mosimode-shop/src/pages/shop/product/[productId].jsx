@@ -93,7 +93,7 @@ const ProductPage = ({ product, productList }) => {
 							<h3>{product.title}</h3>
 							<p className={styles.category}>category: {product.category}</p>
 							<div className={styles.stars}>
-								{generateStars(product.rating.rate)}
+								{generateStars(product.rate)}
 								<br />
 
 								<div className={styles.rateit}>
@@ -121,8 +121,8 @@ export async function getServerSideProps(context) {
 
 	try {
 		// Fetch the product details based on productId
-		const response = await fetch(`https://fakestoreapi.com/products/${productId}`);
-		const response2 = await fetch(`https://fakestoreapi.com/products/`);
+		const response = await fetch(`${process.env.WEBSITE_DOMAIN}/api/getProducts?id=${productId}`);
+		const response2 = await fetch(`${process.env.WEBSITE_DOMAIN}/api/getProducts`);
 		const product = await response.json();
 		const productList = await response2.json();
 		// Return the fetched product as props

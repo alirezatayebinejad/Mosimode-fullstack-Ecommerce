@@ -6,11 +6,11 @@ import ProductCard from "@/components/Cards/ProductCard";
 const ProductsLists = ({ products, selectedCategory }) => {
 	const [currentPage, setCurrentPage] = useState(1);
 	useEffect(() => {
-		setCurrentPage(1); // Reset currentPage to 1 when selectedCategory changes
+		setCurrentPage(1);
 	}, [selectedCategory]);
 	const router = useRouter();
 	const productsPerPage = 7;
-	const filteredProducts = selectedCategory ? products.filter((product) => product.category === selectedCategory) : products;
+	const filteredProducts = selectedCategory ? products.filter((item) => item.category.some((cat) => cat.name === selectedCategory)) : products;
 	const pageNumbers = Math.ceil(filteredProducts.length / productsPerPage);
 	// Pagination
 	const indexOfLastProduct = currentPage * productsPerPage;
@@ -35,22 +35,14 @@ const ProductsLists = ({ products, selectedCategory }) => {
 	const handleProductClick = (productId) => {
 		router.push(`/shop/${productId}`);
 	};
+
+	const renderProductCards = () => {
+		const products = currentProducts.map((product) => <ProductCard key={product.id} product={product} onClick={() => handleProductClick(product.id)} />);
+		return products;
+	};
 	return (
 		<section className={styles.productslists} ref={productsRef}>
-			<div className={styles.products}>
-				{currentProducts.map((product) => (
-					<ProductCard
-						key={product.id}
-						id={product.id}
-						title={product.title}
-						image={product.image}
-						price={product.price}
-						rating={product.rating}
-						category={product.category}
-						onClick={() => handleProductClick(product.id)}
-					/>
-				))}
-			</div>
+			<div className={styles.products}>{renderProductCards()}</div>
 			<div className={styles.pagination}>
 				{generatePageNumbers().length > 1 &&
 					generatePageNumbers().map((pageNumber, index) => (

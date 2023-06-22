@@ -10,7 +10,7 @@ import { closePopup, openPopup } from "@/store/messagePopupSlice";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
-const ProductCard = (product) => {
+const ProductCard = ({ product }) => {
 	const { data, status } = useSession();
 	const isAuthenticated = status === "unauthenticated" && data === null ? false : true;
 	const dispatch = useDispatch();
@@ -56,9 +56,9 @@ const ProductCard = (product) => {
 			<Link href={`/shop/product/${product.id}`}>
 				<Image className={styles.product_image} src={product.image} width={1080} height={1350} alt={product.title} />
 			</Link>
-			<span>{product.category}</span>
+			<span>{product.category[0]?.name}</span>
 			<h4 className={styles.text_limit}>{product.title}</h4>
-			<div className={styles.stars}>{generateStars(product.rating.rate)}</div>
+			<div className={styles.stars}>{generateStars(product.rate)}</div>
 			<h4 className={styles.price}>${product.price}</h4>
 			<button className={styles.buy_icon} onClick={() => addToBasketHandler(product)} disabled={btndisable}>
 				{btndisable ? "..." : <ShoppingCartIcon />}

@@ -4,12 +4,11 @@ import { useRouter } from "next/router";
 import styles from "./index.module.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import ShopProducts from "@/components/Sections/ProductsLists";
+import ProductsLists from "@/components/Sections/ProductsLists";
 import PagesHeader from "@/components/Banner/PagesHeader";
-const ShopPage = ({ products }) => {
+const ShopPage = ({ products, categoryList }) => {
 	const router = useRouter();
 	const [selectedCategory, setSelectedCategory] = useState("");
-
 	const handleCategoryChange = (category) => {
 		setSelectedCategory(category);
 	};
@@ -36,23 +35,16 @@ const ShopPage = ({ products }) => {
 						<button className={selectedCategory === "" ? styles.activeButton : ""} onClick={() => handleCategoryChange("")}>
 							All
 						</button>
-						<button className={selectedCategory === "men's clothing" ? styles.activeButton : ""} onClick={() => handleCategoryChange("men's clothing")}>
-							Men's Clothing
-						</button>
-						<button className={selectedCategory === "women's clothing" ? styles.activeButton : ""} onClick={() => handleCategoryChange("women's clothing")}>
-							Women's Clothing
-						</button>
-						<button className={selectedCategory === "electronics" ? styles.activeButton : ""} onClick={() => handleCategoryChange("electronics")}>
-							Electronics
-						</button>
-						<button className={selectedCategory === "jewelery" ? styles.activeButton : ""} onClick={() => handleCategoryChange("jewelery")}>
-							Jewelery
-						</button>
+						{categoryList.map((item) => (
+							<button key={item} className={selectedCategory === item ? styles.activeButton : ""} onClick={() => handleCategoryChange(item)}>
+								{item}
+							</button>
+						))}
 					</div>
 				</div>
 
 				<div>
-					<ShopProducts products={products} selectedCategory={selectedCategory} />
+					<ProductsLists products={products} selectedCategory={selectedCategory} />
 				</div>
 			</main>
 			<Footer />
@@ -61,11 +53,23 @@ const ShopPage = ({ products }) => {
 };
 
 export async function getServerSideProps() {
-	const response = await fetch("https://fakestoreapi.com/products/");
+	const response = await fetch(`${process.env.WEBSITE_DOMAIN}/api/getProducts`);
 	const data = await response.json();
+	const categoryList = [];
+	data.forEach((item) => {
+		if (item.category) {
+			item.category.forEach((category) => {
+				if (category.name && !categoryList.includes(category.name)) {
+					categoryList.push(category.name);
+				}
+			});
+		}
+	});
+
 	return {
 		props: {
 			products: data,
+			categoryList,
 		},
 	};
 }

@@ -15,6 +15,10 @@
 	border-radius: 15px;
 	margin-bottom: 10px;
 	background-color: rgb(243, 243, 243);
+	transition: background-color 0.3s;
+}
+.product_card:hover {
+	background-color: hsl(0, 0%, 89%);
 }
 .product_card_info {
 	display: flex;
@@ -26,18 +30,17 @@
 	height: 110px;
 	object-fit: cover;
 	border-radius: 12px;
-
 	margin-right: 30px;
 }
 .product_card button {
 	border-radius: 12px;
 	border: none;
-	padding: 15px;
+	padding: 10px;
 	background-color: rgb(252, 74, 74);
 	cursor: pointer;
 	margin-right: 5px;
 	color: white;
-	transition: 0.3s;
+	transition: background-color 0.3s;
 }
 .product_card button:hover {
 	background-color: rgb(235, 47, 47);

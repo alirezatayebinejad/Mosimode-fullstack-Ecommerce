@@ -8,6 +8,7 @@ const AddProductTab = () => {
 	const dispatch = useDispatch();
 	const [title, setTitle] = useState("");
 	const [price, setPrice] = useState(0);
+	const [productCounts, setProductCounts] = useState(0);
 	const [selectedImage, setSelectedImage] = useState(false);
 	const [selectedFile, setSelectedFile] = useState(false);
 	const [description, setDescription] = useState("");
@@ -30,6 +31,7 @@ const AddProductTab = () => {
 		try {
 			if (!selectedFile) {
 				dispatch(openPopup({ message: "you did not selected a picture", mood: false }));
+				setLoading(false);
 				return;
 			}
 			const formData = new FormData();
@@ -37,7 +39,7 @@ const AddProductTab = () => {
 			const { data } = await axios.post("/api/admin/upload", formData);
 			const imageUrl = data.imageUrl;
 
-			const productData = { title, image: imageUrl, price: +price, description, options, tags, categories };
+			const productData = { title, image: imageUrl, price: +price, description, options, tags, categories, productCounts: +productCounts };
 
 			const response = await axios.post("/api/admin/addProducts", productData);
 
@@ -79,6 +81,12 @@ const AddProductTab = () => {
 					<label htmlFor="price">
 						Price:(dollars)
 						<input type="number" step="0.01" min={0} id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
+					</label>
+				</div>
+				<div className={styles.formGroup}>
+					<label htmlFor="productCounts">
+						Count in store:
+						<input type="number" min={0} id="productCounts" value={productCounts} onChange={(e) => setProductCounts(e.target.value)} />
 					</label>
 				</div>
 
