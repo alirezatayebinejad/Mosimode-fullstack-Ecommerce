@@ -4,9 +4,8 @@ const prisma = new PrismaClient();
 
 const addProducts = async (req, res) => {
     try {
-        const { title, image, price, description, options, tags, categories } = req.body;
+        const { title, image, price, description, options, tags, categories, productCounts } = req.body;
 
-        // Create the product in the database
         const product = await prisma.product.create({
             data: {
                 title,
@@ -16,6 +15,7 @@ const addProducts = async (req, res) => {
                 options: { create: options.map((option) => ({ name: option })) },
                 tags: { create: tags.map((tag) => ({ name: tag })) },
                 category: { create: categories.map((category) => ({ name: category })) },
+                productCounts
             },
             include: {
                 options: true,
