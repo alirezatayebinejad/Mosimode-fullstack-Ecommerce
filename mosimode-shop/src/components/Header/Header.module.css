@@ -94,6 +94,7 @@
 .shop_list {
 	position: relative;
 }
+
 .dropdown_content {
 	position: absolute;
 	top: 100%;
@@ -118,23 +119,25 @@
 .shop_list:hover .dropdown_content {
 	display: flex;
 }
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 770px) {
 	.header {
 		padding: 0 10px;
+		flex-wrap: wrap;
 	}
 	.list_nav ul li {
 		padding: 0 10px;
 	}
-}
-@media screen and (max-width: 600px) {
 	.list_nav {
 		display: none;
-	}
-	.header {
-		flex-wrap: wrap;
 	}
 	.logo_image {
 		width: 35px;
 		height: 35px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.userName {
+		display: none;
 	}
 }

@@ -103,7 +103,7 @@ const Header = () => {
 					{status === "authenticated" && data !== null && (
 						<li>
 							<Link href="/dashboard">
-								{data.user.username}
+								<p className={styles.userName}>{data.user.username}</p>
 								<PersonIcon />
 							</Link>
 						</li>

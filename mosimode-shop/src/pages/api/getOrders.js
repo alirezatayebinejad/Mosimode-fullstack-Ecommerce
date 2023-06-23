@@ -7,7 +7,25 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: "Method not allowed" });
     }
 
+    const { userId } = req.query;
+
     try {
+        if (userId) {
+            const orders = await prisma.order.findMany({
+                where: {
+                    userId,
+                },
+                include: {
+                    items: {
+                        include: {
+                            product: true,
+                        },
+                    },
+                },
+            });
+
+            res.status(200).json(orders);
+        }
         const orders = await prisma.order.findMany({
             include: {
                 items: {
