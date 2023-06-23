@@ -1,12 +1,56 @@
 .userInfoTab {
 	margin-bottom: 20px;
+	min-height: 50vh;
 }
 
 .userInfoTab h2 {
 	font-size: 1.5rem;
-	margin-bottom: 10px;
 }
 
-.userInfoTab p {
-	margin-bottom: 5px;
+.userInfoTab > p {
+	margin-bottom: 30px;
+}
+.error {
+	margin-top: 20px;
+	color: white;
+	background-color: rgb(250, 82, 82);
+	padding: 10px;
+	text-align: center;
+	border-radius: 12px;
+}
+.form {
+	display: flex;
+	flex-direction: column;
+	border-radius: 12px;
+	padding: 20px;
+}
+.form div {
+	margin: 15px 0;
+	display: flex;
+	justify-content: space-evenly;
+}
+.form input {
+	background-color: rgb(227, 227, 227);
+	padding: 10px;
+	border-radius: 5px;
+	border: 12px;
+	margin: 0 15px 0 5px;
+}
+.form button {
+	max-width: 150px;
+	padding: 15px;
+	margin-top: 30px;
+	border-radius: 12px;
+	border: none;
+	background-color: var(--main-color);
+	align-self: center;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+.form button:hover {
+	background-color: var(--main-color-darker);
+}
+.form button:disabled {
+	background-color: var(--main-color-mid-opacity);
 }

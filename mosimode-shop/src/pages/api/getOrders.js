@@ -26,16 +26,18 @@ export default async function handler(req, res) {
 
             res.status(200).json(orders);
         }
-        const orders = await prisma.order.findMany({
-            include: {
-                items: {
-                    include: {
-                        product: true,
+        else {
+            const orders = await prisma.order.findMany({
+                include: {
+                    items: {
+                        include: {
+                            product: true,
+                        },
                     },
                 },
-            },
-        });
-        res.status(200).json(orders);
+            });
+            res.status(200).json(orders);
+        }
     } catch (error) {
         console.error("Error fetching orders:", error);
         res.status(500).json({ error: "Failed to fetch orders" });
