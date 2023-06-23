@@ -8,6 +8,7 @@ import ProductsTab from "../../../components/DashboardAdmin/Tabs/ProductsTab";
 import UsersTab from "../../../components/DashboardAdmin/Tabs/UsersTab";
 import OrdersTab from "../../../components/DashboardAdmin/Tabs/OrdersTab";
 import TabsHeader from "../../../components/DashboardAdmin/TabsHeader/TabsHeader";
+import { signOut } from "next-auth/react";
 
 const adminDashboard = () => {
 	const [activeTab, setActiveTab] = useState("Add Product");
@@ -38,6 +39,10 @@ const adminDashboard = () => {
 						Orders
 					</li>
 				</ul>
+
+				<div className={styles.logout_btn} onClick={() => signOut()}>
+					<p>Logout</p>
+				</div>
 			</div>
 			<div className={styles.content}>
 				{activeTab === "Add Product" && (

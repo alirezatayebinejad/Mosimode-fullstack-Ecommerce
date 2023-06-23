@@ -26,7 +26,6 @@
 	padding: 0;
 	margin: 20px 0 0 0;
 }
-
 .tabListItem {
 	cursor: pointer;
 	padding: 10px 10px;
@@ -45,7 +44,15 @@
 	background: var(--main-color);
 	color: #fff;
 }
-
+.logout_btn {
+	text-align: center;
+	margin: 30px;
+	cursor: pointer;
+}
+.logout_btn p {
+	color: rgb(88, 0, 0);
+	font-size: 15px;
+}
 .content {
 	flex: 1;
 	padding: 20px;
