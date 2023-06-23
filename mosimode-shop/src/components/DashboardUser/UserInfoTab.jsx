@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./UserInfoTab.module.css";
 
 const UserInfoTab = ({ user }) => {
+	console.log(user);
 	return (
 		<div className={styles.userInfoTab}>
 			<h2>User Information</h2>

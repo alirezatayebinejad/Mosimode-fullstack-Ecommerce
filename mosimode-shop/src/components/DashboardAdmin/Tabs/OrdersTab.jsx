@@ -24,7 +24,7 @@ const OrdersTab = () => {
 			{orders.length > 0 ? (
 				<ul className={styles.orderList}>
 					{orders.map((order) => (
-						<OrderCard order={order} />
+						<OrderCard order={order} key={order.id} />
 					))}
 				</ul>
 			) : (

@@ -3,7 +3,6 @@ import styles from "./OrderCard.module.css";
 import Image from "next/image";
 
 const OrderCard = ({ order }) => {
-	console.log(order);
 	return (
 		<div key={order.id} className={styles.orders}>
 			<div className={styles.orderDetails}>
