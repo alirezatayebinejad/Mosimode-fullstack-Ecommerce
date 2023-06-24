@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
     const { keyword } = req.query;
-    console.log("inside apissssss", keyword);
 
     try {
         const products = await prisma.product.findMany({

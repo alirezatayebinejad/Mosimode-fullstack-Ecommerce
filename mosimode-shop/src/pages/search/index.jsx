@@ -11,7 +11,6 @@ const SearchPage = () => {
 	const [products, setProducts] = useState([]);
 	const router = useRouter();
 	const searchTerm = router.query.search;
-	console.log(products);
 
 	useEffect(() => {
 		if (searchTerm) axios.get(`/api/search?keyword=${searchTerm}`).then((res) => setProducts(res.data.products));
