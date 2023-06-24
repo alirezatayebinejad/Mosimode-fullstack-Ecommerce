@@ -7,22 +7,16 @@ import { setIsCartOpen, removeFromCart, increaseCount, decreaseCount } from "../
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const ShoppingCart = () => {
+	const router = useRouter();
 	const dispatch = useDispatch();
 	const cartItems = useSelector((state) => state.cart.cart);
+	const totalPrice = useSelector((state) => state.cart.totalPrice);
 	const { data, status } = useSession();
 	const isAuthenticated = status === "unauthenticated" && data === null ? false : true;
 	const [btndisable, setBtndisable] = useState(false);
-
-	const pricCalculator = () => {
-		let lastPrice = 0;
-		cartItems.forEach((item) => {
-			lastPrice += item.count * item.product.price;
-		});
-
-		return Math.round(lastPrice * 100) / 100; //only two digit after dot
-	};
 
 	let handlersConfig = (item) => {
 		let anonymousUserID = localStorage.getItem("anonymousUserID");
@@ -89,9 +83,16 @@ const ShoppingCart = () => {
 				<div className={styles.cartitems}>{generateCartItems()}</div>
 				{cartItems.length > 0 ? (
 					<div className={styles.cart_footer}>
-						<h3>Total Price: ${pricCalculator()}</h3>
+						<h3>Total Price: ${totalPrice}</h3>
 						<Link href={"/checkout"}>
-							<button>Checkout Page</button>
+							<button
+								onClick={() => {
+									dispatch(setIsCartOpen({}));
+									router.push("/checkout");
+								}}
+							>
+								Checkout Page
+							</button>
 						</Link>
 					</div>
 				) : (

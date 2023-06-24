@@ -61,7 +61,7 @@ export default async function handleCart(req, res) {
             return res.status(500).json({ message: "Internal Server Error" });
         }
     }
-    if (method == "POST") {
+    else if (method == "POST") {
         try {
             let cart;
             let user;
@@ -167,5 +167,24 @@ export default async function handleCart(req, res) {
             return res.status(500).json({ message: "Internal Server Error" });
         }
     }
+    else if (method == "DELETE") {
+        try {
+            if (req.query.userId) {
+                await prisma.cartItem.deleteMany({ where: { userId } });
+                await prisma.cart.deleteMany({ where: { userId } });
+            } else if (req.query.anonymousUserUuid) {
+                await prisma.cartItem.deleteMany({ where: { anonymousUserId: anonymousUserUuid } });
+                await prisma.cart.deleteMany({ where: { anonymousUserId: anonymousUserUuid } });
+            } else {
+                return res.status(400).json({ message: "Missing user ID or anonymous user UUID" });
+            }
+
+            return res.status(200).json({ message: "Cart deleted successfully" });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Internal Server Error" });
+        }
+    }
+
     return res.status(405).json({ message: "Method Not Allowed" });
 }

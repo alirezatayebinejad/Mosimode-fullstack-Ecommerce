@@ -1,0 +1,108 @@
+/* index.module.css */
+
+.checkoutPage {
+	display: flex;
+	justify-content: space-between;
+	margin: 2rem;
+	margin-top: 100px;
+}
+
+.orderItems {
+	flex: 1;
+	padding: 1rem;
+	background-color: #f7f7f7;
+	border-radius: 8px;
+}
+
+.orderItems h2 {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.orderItems ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.orderItems li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.orderItems li img {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	border-radius: 4px;
+	margin-right: 1rem;
+}
+
+.orderItems li span {
+	font-size: 1rem;
+}
+
+.totalPrice {
+	font-size: 1.5rem;
+	margin-top: 2rem;
+	text-align: right;
+}
+
+.orderForm {
+	flex: 1;
+	padding: 1rem;
+	background-color: #f7f7f7;
+	border-radius: 8px;
+}
+
+.orderForm h2 {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.formGroup {
+	margin-bottom: 1rem;
+}
+
+.formGroup label {
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.formGroup input[type="text"],
+.formGroup textarea {
+	width: 100%;
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.formGroup button[type="submit"] {
+	background-color: #4caf50;
+	color: #fff;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.formGroup button[type="submit"]:hover {
+	background-color: #45a049;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+	.checkoutPage {
+		flex-direction: column;
+		margin: 1rem;
+	}
+
+	.orderItems,
+	.orderForm {
+		margin-bottom: 1rem;
+	}
+}

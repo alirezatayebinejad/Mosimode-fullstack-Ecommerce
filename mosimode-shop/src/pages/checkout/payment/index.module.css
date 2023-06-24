@@ -1,0 +1,12 @@
+.pageContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 70vh;
+}
+.pageContainer h1 {
+	background-color: var(--main-color);
+	border-radius: 12px;
+	padding: 10px;
+	color: white;
+}
