@@ -3,6 +3,7 @@ import styles from "./UserInfoTab.module.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { openPopup } from "@/store/messagePopupSlice";
+import { signOut } from "next-auth/react";
 
 const UserInfoTab = ({ user }) => {
 	const dispatch = useDispatch();
@@ -71,6 +72,9 @@ const UserInfoTab = ({ user }) => {
 					{loading ? "Saving..." : "Save Changes"}
 				</button>
 				{error && <p className={styles.error}>{error}</p>}
+				<div className={styles.logout_btn} onClick={() => signOut()}>
+					<p>Logout</p>
+				</div>
 			</form>
 		</div>
 	);

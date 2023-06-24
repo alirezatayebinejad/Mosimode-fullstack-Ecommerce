@@ -54,3 +54,12 @@
 .form button:disabled {
 	background-color: var(--main-color-mid-opacity);
 }
+.logout_btn {
+	text-align: center;
+	margin: 30px;
+	cursor: pointer;
+}
+.logout_btn p {
+	color: rgb(88, 0, 0);
+	font-size: 15px;
+}
