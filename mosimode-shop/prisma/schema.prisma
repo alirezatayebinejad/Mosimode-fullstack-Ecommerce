@@ -26,6 +26,7 @@ model AnonymousUser {
   id          String   @id @default(uuid())
   phoneNumber String?
   cart        Cart?
+  orders      Order[]
   createdAt   DateTime @default(now())
 }
 
@@ -76,8 +77,6 @@ model ProductOptions {
   ProductId Int
 }
 
-//////////////
-
 model CartItem {
   id        Int      @id @default(autoincrement())
   Product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
@@ -88,22 +87,24 @@ model CartItem {
 }
 
 model Order {
-  id             String         @id @default(uuid())
-  totalAmount    Float
-  user           User?          @relation(fields: [userId], references: [id])
-  userId         String?
-  items          OrderItem[]
-  name           String
-  phonenumber    String
-  telephone      String?
-  state          String
-  city           String
-  address        String
-  postalcode     String?
-  message        String?
-  deliveryMethod DeliveryMethod
-  paymentStatus  PaymentStatus  @default(PENDING)
-  createdAt      DateTime       @default(now())
+  id               String         @id @default(uuid())
+  totalAmount      Float
+  user             User?          @relation(fields: [userId], references: [id])
+  userId           String?
+  anonymouseUser   AnonymousUser? @relation(fields: [anonymouseUserId], references: [id])
+  anonymouseUserId String?
+  items            OrderItem[]
+  name             String
+  phonenumber      String
+  telephone        String?
+  state            String
+  city             String
+  address          String
+  postalcode       String?
+  message          String?
+  deliveryMethod   DeliveryMethod
+  paymentStatus    PaymentStatus  @default(PENDING)
+  createdAt        DateTime       @default(now())
 }
 
 enum DeliveryMethod {
