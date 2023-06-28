@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import styles from "./SearchPopup.module.css";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "next-i18next";
 
 const SearchPopup = ({ setIsSearchOpen }) => {
+	const { t } = useTranslation("all");
 	const [searchTerm, setSearchTerm] = useState("");
 	const router = useRouter();
 	const handleSearch = () => {
@@ -18,10 +20,10 @@ const SearchPopup = ({ setIsSearchOpen }) => {
 			<div className={styles.searchpopup}>
 				<div className={styles.close} onClick={() => setIsSearchOpen(false)}>
 					<CloseIcon />
-					close
+					{t("close")}
 				</div>
 				<div className={styles.search}>
-					<input type="text" name="search" onChange={(e) => setSearchTerm(e.target.value)} placeholder="search product..." />
+					<input type="text" name="search" onChange={(e) => setSearchTerm(e.target.value)} placeholder={t("search product...")} />
 					<button onClick={handleSearch}>
 						<SearchIcon />
 					</button>

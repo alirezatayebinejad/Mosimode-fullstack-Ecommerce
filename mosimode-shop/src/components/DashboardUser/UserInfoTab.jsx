@@ -4,8 +4,10 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { openPopup } from "@/store/messagePopupSlice";
 import { signOut } from "next-auth/react";
+import { useTranslation } from "next-i18next";
 
 const UserInfoTab = ({ user }) => {
+	const { t } = useTranslation("all");
 	const dispatch = useDispatch();
 	const [formData, setFormData] = useState({
 		name: user.name || "",
@@ -29,7 +31,7 @@ const UserInfoTab = ({ user }) => {
 			const response = await axios.put(`/api/users/${user.id}`, formData);
 			if (response.statusText === "OK") {
 				console.log("User data updated");
-				dispatch(openPopup({ message: "you data is updated", mood: true }));
+				dispatch(openPopup({ message: "your data is updated", mood: true }));
 			} else {
 				dispatch(openPopup({ message: "your data is not updated", mood: false }));
 				throw new Error("Error updating user data");
@@ -45,35 +47,35 @@ const UserInfoTab = ({ user }) => {
 
 	return (
 		<div className={styles.userInfoTab}>
-			<h2>Your Information</h2>
-			<p>You can modify this data and click save changes</p>
+			<h2>{t("Your Information")}</h2>
+			<p>{t("You can modify this data and click save changes")}</p>
 			<form onSubmit={handleSubmit} className={styles.form}>
 				<div>
 					<label>
-						Name:
+						{t("Name")}:
 						<input type="text" name="name" defaultValue={formData.name} onChange={handleChange} />
 					</label>
 					<label>
-						Username:
+						{t("Username")}:
 						<input type="text" name="username" defaultValue={formData.username} onChange={handleChange} required />
 					</label>
 				</div>
 				<div>
 					<label>
-						Email:
+						{t("Email")}:
 						<input type="email" name="email" defaultValue={formData.email} onChange={handleChange} />
 					</label>
 					<label>
-						Phone Number:
+						{t("Phone Number")}:
 						<input type="tel" name="phoneNumber" defaultValue={formData.phoneNumber} onChange={handleChange} />
 					</label>
 				</div>
 				<button type="submit" disabled={loading}>
-					{loading ? "Saving..." : "Save Changes"}
+					{loading ? t("Saving...") : t("Save Changes")}
 				</button>
 				{error && <p className={styles.error}>{error}</p>}
 				<div className={styles.logout_btn} onClick={() => signOut()}>
-					<p>Logout</p>
+					<p>{t("Logout")}</p>
 				</div>
 			</form>
 		</div>

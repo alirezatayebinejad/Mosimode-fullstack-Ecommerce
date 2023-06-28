@@ -9,13 +9,17 @@ import { addToCart } from "../../store/cartSlice";
 import { closePopup, openPopup } from "@/store/messagePopupSlice";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 const ProductCard = ({ product }) => {
+	const { t } = useTranslation("all");
 	const { data, status } = useSession();
 	const isAuthenticated = status === "unauthenticated" && data === null ? false : true;
 	const dispatch = useDispatch();
 	const cartItems = useSelector((state) => state.cart.cart);
 	const [btndisable, setBtndisable] = useState(false);
+	const router = useRouter();
 
 	const addToBasketHandler = async (product) => {
 		setBtndisable(true);
@@ -59,8 +63,15 @@ const ProductCard = ({ product }) => {
 			<span>{product.category[0]?.name}</span>
 			<h4 className={styles.text_limit}>{product.title}</h4>
 			<div className={styles.stars}>{generateStars(product.rate)}</div>
-			<h4 className={styles.price}>${product.price}</h4>
-			<button className={styles.buy_icon} onClick={() => addToBasketHandler(product)} disabled={btndisable}>
+			<h4 className={styles.price}>
+				{product.price} {t("$")}
+			</h4>
+			<button
+				className={styles.buy_icon}
+				style={router.locale === "fa" ? { left: "10px" } : { right: "10px" }}
+				onClick={() => addToBasketHandler(product)}
+				disabled={btndisable}
+			>
 				{btndisable ? "..." : <ShoppingCartIcon />}
 			</button>
 		</div>

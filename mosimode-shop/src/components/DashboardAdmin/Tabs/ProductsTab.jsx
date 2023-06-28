@@ -3,8 +3,10 @@ import styles from "./ProductsTab.module.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { openPopup } from "@/store/messagePopupSlice";
+import { useTranslation } from "next-i18next";
 
 const ProductsTab = () => {
+	const { t } = useTranslation("all");
 	const dispatch = useDispatch();
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -37,11 +39,13 @@ const ProductsTab = () => {
 	};
 
 	return loading ? (
-		<h3>Loading...</h3>
+		<h3>{t("Loading")}...</h3>
 	) : (
 		<div className={styles.container}>
 			<div className={styles.countProducts}>
-				<p>total products: {products.length}</p>
+				<p>
+					{t("total products")}: {products.length}
+				</p>
 			</div>
 			{products.map((product) => (
 				<div key={product.id} className={styles.product_card}>
@@ -54,7 +58,7 @@ const ProductsTab = () => {
 						</div>
 						<h4>{product.price}</h4>
 					</div>
-					<button onClick={() => handleDelete(product.id)}>Delete</button>
+					<button onClick={() => handleDelete(product.id)}>{t("Delete")}</button>
 				</div>
 			))}
 		</div>

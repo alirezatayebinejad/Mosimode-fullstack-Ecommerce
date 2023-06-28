@@ -6,7 +6,11 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ProductsLists from "@/components/Sections/ProductsLists";
 import PagesHeader from "@/components/Banner/PagesHeader";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
 const ShopPage = ({ products, categoryList }) => {
+	const { t } = useTranslation("all");
 	const router = useRouter();
 	const [selectedCategory, setSelectedCategory] = useState("");
 	const handleCategoryChange = (category) => {
@@ -21,19 +25,21 @@ const ShopPage = ({ products, categoryList }) => {
 	return (
 		<>
 			<Head>
-				<title>Shop | mosimode</title>
+				<title>
+					{t("Shop")} | {t("mosimode")}
+				</title>
 				<meta name="description" content="Shop page" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Header />
 			<main>
-				<PagesHeader title={"Explore the shop"} />
+				<PagesHeader title={t("Explore the shop")} />
 				<div className={styles.categoryfilter}>
-					<h3>choose a category</h3>
+					<h3>{t("choose a category")}</h3>
 					<div className={styles.categorybuttons}>
 						<button className={selectedCategory === "" ? styles.activeButton : ""} onClick={() => handleCategoryChange("")}>
-							All
+							{t("All")}
 						</button>
 						{categoryList.map((item) => (
 							<button key={item} className={selectedCategory === item ? styles.activeButton : ""} onClick={() => handleCategoryChange(item)}>
@@ -52,7 +58,9 @@ const ShopPage = ({ products, categoryList }) => {
 	);
 };
 
-export async function getServerSideProps() {
+export default ShopPage;
+
+export async function getServerSideProps({ locale }) {
 	const response = await fetch(`${process.env.WEBSITE_DOMAIN}/api/getProducts`);
 	const data = await response.json();
 	const categoryList = [];
@@ -70,8 +78,7 @@ export async function getServerSideProps() {
 		props: {
 			products: data,
 			categoryList,
+			...(await serverSideTranslations(locale, ["all"])),
 		},
 	};
 }
-
-export default ShopPage;

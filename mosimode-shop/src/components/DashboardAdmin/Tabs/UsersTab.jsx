@@ -3,8 +3,10 @@ import styles from "./UsersTab.module.css";
 import { useDispatch } from "react-redux";
 import { openPopup } from "@/store/messagePopupSlice";
 import axios from "axios";
+import { useTranslation } from "next-i18next";
 
 const UsersTab = () => {
+	const { t } = useTranslation("all");
 	const dispatch = useDispatch();
 	const [users, setUsers] = useState([]);
 
@@ -38,12 +40,14 @@ const UsersTab = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.countUsers}>
-				<p>total products: {users.length}</p>
+				<p>
+					{t("total products")}: {users.length}
+				</p>
 			</div>
 			{users.map((user) => (
 				<div key={user.id} className={styles.userCard}>
 					<p>{user.username}</p>
-					<button onClick={() => removeUser(user.id)}>Remove</button>
+					<button onClick={() => removeUser(user.id)}>{t("Remove")}</button>
 				</div>
 			))}
 		</div>

@@ -5,8 +5,11 @@ import Footer from "../../../components/Footer/Footer";
 import UserInfoTab from "../../../components/DashboardUser/UserInfoTab";
 import OrdersTab from "../../../components/DashboardUser/OrdersTab";
 import styles from "./index.module.css";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const userDashboard = ({ user, orders }) => {
+	const { t } = useTranslation("all");
 	const [activeTab, setActiveTab] = useState("userInfo");
 
 	const handleTabChange = (tabName) => {
@@ -19,10 +22,10 @@ const userDashboard = ({ user, orders }) => {
 			<div className={styles.container}>
 				<div className={styles.tabsContainer}>
 					<div className={`${styles.tab} ${activeTab === "userInfo" ? styles.active : ""}`} onClick={() => handleTabChange("userInfo")}>
-						User Info
+						{t("User Info")}
 					</div>
 					<div className={`${styles.tab} ${activeTab === "orders" ? styles.active : ""}`} onClick={() => handleTabChange("orders")}>
-						Orders
+						{t("Orders")}
 					</div>
 				</div>
 				<div className={styles.tabContent}>
@@ -38,12 +41,14 @@ export default userDashboard;
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context);
+	const { locale } = context;
 
 	if (!session) {
 		return {
 			redirect: {
 				destination: "/login",
 				permanent: false,
+				...(await serverSideTranslations(locale, ["all"])),
 			},
 		};
 	} else if (session.user.username === process.env.ADMIN_USERNAME) {
@@ -51,6 +56,7 @@ export async function getServerSideProps(context) {
 			redirect: {
 				destination: "/dashboard/admin",
 				permanent: false,
+				...(await serverSideTranslations(locale, ["all"])),
 			},
 		};
 	}
@@ -65,6 +71,7 @@ export async function getServerSideProps(context) {
 		props: {
 			user,
 			orders,
+			...(await serverSideTranslations(locale, ["all"])),
 		},
 	};
 }

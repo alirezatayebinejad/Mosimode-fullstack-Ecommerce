@@ -3,6 +3,7 @@
 .checkoutPage {
 	display: flex;
 	justify-content: space-between;
+	gap: 20px;
 	margin: 2rem;
 	margin-top: 100px;
 }
@@ -28,6 +29,7 @@
 .orderItems li {
 	display: flex;
 	align-items: center;
+	gap: 10px;
 	margin-bottom: 1rem;
 }
 
@@ -60,7 +62,19 @@
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
 }
-
+.orderForm button {
+	width: 100%;
+	padding: 15px;
+	cursor: pointer;
+	background-color: var(--main-color);
+	border: none;
+	color: white;
+	transition: background-color 0.3s;
+	border-radius: 8px;
+}
+.orderForm button:hover {
+	background-color: var(--main-color-darker);
+}
 .formGroup {
 	margin-bottom: 1rem;
 }

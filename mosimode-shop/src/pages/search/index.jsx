@@ -6,8 +6,11 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ProductsLists from "@/components/Sections/ProductsLists";
 import axios from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const SearchPage = () => {
+	const { t } = useTranslation("all");
 	const [products, setProducts] = useState([]);
 	const router = useRouter();
 	const searchTerm = router.query.search;
@@ -20,17 +23,19 @@ const SearchPage = () => {
 		<div>
 			<>
 				<Head>
-					<title>search={searchTerm}</title>
+					<title>
+						{t("search")}={searchTerm}
+					</title>
 					<meta name="description" content="search page" />
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 					<link rel="icon" href="/favicon.ico" />
 				</Head>
 				<Header />
 				<main>
-					<PagesHeader title={`search: ${searchTerm}`} />
+					<PagesHeader title={`${t("search")}: ${searchTerm}`} />
 					<h2 align="center">
 						<br />
-						results:
+						{t("results")}:
 						<br />
 						<br />
 					</h2>
@@ -45,3 +50,11 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
+
+export async function getStaticProps({ locale }) {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ["all"])),
+		},
+	};
+}

@@ -3,8 +3,10 @@ import axios from "axios";
 import styles from "./AddProductTab.module.css";
 import { useDispatch } from "react-redux";
 import { openPopup } from "@/store/messagePopupSlice";
+import { useTranslation } from "next-i18next";
 
 const AddProductTab = () => {
+	const { t } = useTranslation("all");
 	const dispatch = useDispatch();
 	const [title, setTitle] = useState("");
 	const [price, setPrice] = useState(0);
@@ -69,30 +71,30 @@ const AddProductTab = () => {
 				<div className={styles.formGroup}>
 					<label>
 						<input type="file" hidden onChange={handleImageChange} />
-						<div className={styles.ImageUpload}>{selectedImage ? <img src={selectedImage} alt="" /> : <span>Select Image</span>}</div>
+						<div className={styles.ImageUpload}>{selectedImage ? <img src={selectedImage} alt="" /> : <span>{t("Select Image")}</span>}</div>
 					</label>
 				</div>
 				<div className={styles.formGroup}>
 					<label htmlFor="title">
-						Title:
+						{t("Title")}:
 						<input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
 					</label>
 
 					<label htmlFor="price">
-						Price:(dollars)
+						{t("Price")}:({t("dollars")})
 						<input type="number" step="0.01" min={0} id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
 					</label>
 				</div>
 				<div className={styles.formGroup}>
 					<label htmlFor="productCounts">
-						Count in store:
+						{t("Count in store")}:
 						<input type="number" min={0} id="productCounts" value={productCounts} onChange={(e) => setProductCounts(e.target.value)} />
 					</label>
 				</div>
 
 				<div className={styles.formGroup}>
 					<label htmlFor="options">
-						options:(separate with comma)
+						{t("options")}:({t("separate with comma")})
 						<input
 							type="text"
 							id="options"
@@ -105,7 +107,7 @@ const AddProductTab = () => {
 				</div>
 				<div className={styles.formGroup}>
 					<label htmlFor="tags">
-						Tags:(separate with comma)
+						{t("Tags")}:({t("separate with comma")})
 						<input
 							type="text"
 							id="tags"
@@ -118,7 +120,7 @@ const AddProductTab = () => {
 				</div>
 				<div className={styles.formGroup}>
 					<label htmlFor="categories">
-						Categories:(separate with comma)
+						{t("Categories")}:({t("separate with comma")})
 						<input
 							type="text"
 							id="categories"
@@ -132,12 +134,11 @@ const AddProductTab = () => {
 				</div>
 				<div className={styles.formGroup}>
 					<label htmlFor="description">
-						Description:
-						<textarea id="description" maxLength={180} value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+						{t("Description")}:<textarea id="description" maxLength={180} value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
 					</label>
 				</div>
 				<button type="submit" className={styles.submitButton} disabled={loading} style={{ opacity: loading ? "0.5" : "1" }}>
-					{loading ? "adding..." : "Add Product"}
+					{loading ? `${t("adding...")}` : `${t("Add Product")}`}
 				</button>
 			</form>
 		</div>

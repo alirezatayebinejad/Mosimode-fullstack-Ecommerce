@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import { appWithTranslation } from 'next-i18next';
 import { store } from "../store/store";
 import { Provider } from "react-redux";
 import MessagePopup from '@/components/Popups/MessagePopup';
@@ -6,8 +7,19 @@ import { SessionProvider } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Loading from '../components/Loading/Loading';
+import { Vazirmatn } from "next/font/google"
+import { League_Spartan } from "next/font/google"
 
-export default function App({ Component, pageProps }) {
+const vazirmatn = Vazirmatn({
+  subsets: ['latin', 'arabic'],
+
+})
+const league_Spartan = League_Spartan({
+  subsets: ['latin'],
+
+})
+
+function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -27,13 +39,17 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return (
+
     <SessionProvider>
       <Provider store={store}>
-        {loading ? <Loading spinnerType={"spinner1"} /> : null}
-        <Component {...pageProps} />
-        <MessagePopup />
+        <div dir={router.locale === "en" ? "lrt" : "rtl"} className={router.locale === "fa" ? vazirmatn.className : league_Spartan.className}>
+          {loading ? <Loading spinnerType={"spinner1"} /> : null}
+          <Component {...pageProps} />
+          <MessagePopup />
+        </div>
       </Provider>
-    </SessionProvider>
+    </SessionProvider >
 
   )
 }
+export default appWithTranslation(App);

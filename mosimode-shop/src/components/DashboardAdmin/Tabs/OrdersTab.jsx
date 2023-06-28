@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./OrdersTab.module.css";
 import axios from "axios";
 import OrderCard from "../../Cards/OrderCard";
+import { useTranslation } from "next-i18next";
 
 const OrdersTab = () => {
+	const { t } = useTranslation("all");
 	const [orders, setOrders] = useState([]);
 
 	useEffect(() => {
@@ -28,7 +30,7 @@ const OrdersTab = () => {
 					))}
 				</ul>
 			) : (
-				<div className={styles.noOrders}>No orders found.</div>
+				<div className={styles.noOrders}>{t("No orders found")}.</div>
 			)}
 		</div>
 	);

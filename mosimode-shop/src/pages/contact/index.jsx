@@ -9,8 +9,11 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import PagesHeader from "@/components/Banner/PagesHeader";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const ContactPage = () => {
+	const { t } = useTranslation("all");
 	const [formData, setFormData] = useState({
 		firstName: "",
 		lastName: "",
@@ -36,19 +39,19 @@ const ContactPage = () => {
 	return (
 		<>
 			<Head>
-				<title>contact | mosimode</title>
+				<title>{t("contact")} | mosimode</title>
 				<meta name="description" content="mosimode ecommerce website" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Header />
 			<main>
-				<PagesHeader title={"contact us"} />
+				<PagesHeader title={t("contact us")} />
 				<div className={styles.contactPage}>
 					<div className={styles.contactInfo}>
 						<div className={styles.section}>
 							<LocationOnIcon className={styles.icon} />
-							<p>123 Main St, City, Country</p>
+							<p>{t("123 Main St, City, Country")}</p>
 						</div>
 						<div className={styles.section}>
 							<EmailIcon className={styles.icon} />
@@ -72,29 +75,29 @@ const ContactPage = () => {
 						</div>
 					</div>
 					<div className={styles.contactForm}>
-						<h2>Send Us a Message</h2>
+						<h2>{t("Send Us a Message")}</h2>
 						<form onSubmit={handleSubmit}>
 							<div className={styles.formGroup}>
-								<label htmlFor="firstName">First Name *</label>
+								<label htmlFor="firstName">{t("First Name")} *</label>
 								<input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} required />
 							</div>
 							<div className={styles.formGroup}>
-								<label htmlFor="lastName">Last Name</label>
+								<label htmlFor="lastName">{t("Last Name")}</label>
 								<input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} />
 							</div>
 							<div className={styles.formGroup}>
-								<label htmlFor="email">Email *</label>
+								<label htmlFor="email">{t("Email")} *</label>
 								<input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
 							</div>
 							<div className={styles.formGroup}>
-								<label htmlFor="phoneNumber">Phone Number</label>
+								<label htmlFor="phoneNumber">{t("Phone Number")}</label>
 								<input type="tel" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
 							</div>
 							<div className={styles.formGroup}>
-								<label htmlFor="message">Message *</label>
+								<label htmlFor="message">{t("Message")} *</label>
 								<textarea id="message" name="message" value={formData.message} onChange={handleChange} required></textarea>
 							</div>
-							<button type="submit">Send Message</button>
+							<button type="submit">{t("Send Message")}</button>
 						</form>
 					</div>
 				</div>
@@ -105,3 +108,11 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
+
+export async function getStaticProps({ locale }) {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ["all"])),
+		},
+	};
+}

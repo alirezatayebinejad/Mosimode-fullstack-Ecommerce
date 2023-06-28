@@ -5,50 +5,45 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import Head from "next/head";
 import PagesHeader from "@/components/Banner/PagesHeader";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const AboutPage = () => {
+	const { t } = useTranslation("all");
 	return (
 		<>
 			<Head>
-				<title>About | Mosimode</title>
+				<title>
+					{t("About")} | {t("Mosimode")}
+				</title>
 				<meta name="description" content="search page" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Header />
-			<PagesHeader title={"About Us"} />
+			<PagesHeader title={t("About Us")} />
 			<div className={styles.container}>
-				<h2 className={styles.heading}>About Mosimode</h2>
+				<h2 className={styles.heading}>
+					{t("About")} {t("Mosimode")}
+				</h2>
 				<div className={styles.content}>
-					<h3 className={styles.subheading}>Our Story</h3>
-					<p>
-						Mosimode is a trendy and fashion-forward clothing shop that offers a wide range of stylish and high-quality apparel for both men and women. Our
-						passion for fashion and dedication to providing exceptional customer experiences have made us a favorite destination for fashion enthusiasts.
-					</p>
+					<h3 className={styles.subheading}>{t("Our Story")}</h3>
+					<p>{t("Mosimode is a...")}</p>
 				</div>
 				<div className={styles.content}>
-					<h3 className={styles.subheading}>Our Collections</h3>
+					<h3 className={styles.subheading}>{t("Our Collections")}</h3>
 					<div>
 						<Image src="/assets/banners/about1.jpg" alt="Collection 1" width={976} height={488} className={styles.image} priority />
-						<p>
-							Our collection showcases the latest trends in clothing, from casualwear to formal attire. Whether you're looking for everyday essentials or
-							statement pieces, we have something for every style and occasion.
-						</p>
+						<p>{t("Our collection showcases...")}</p>
 					</div>
 					<div>
 						<Image src="/assets/banners/about2.jpg" alt="Collection 2" width={400} height={300} className={styles.image} />
-						<p>
-							Our curated selection of clothing combines comfort, quality, and style. We source our products from renowned designers and brands to ensure
-							that our customers receive the best in fashion.
-						</p>
+						<p>{t("Our curated selection...")}</p>
 					</div>
 				</div>
 				<div className={styles.content}>
-					<h3 className={styles.subheading}>Visit Us</h3>
-					<p>
-						We invite you to visit our store and explore our diverse collection of clothing. Our friendly and knowledgeable staff are always ready to assist
-						you in finding the perfect outfits that reflect your unique style and personality.
-					</p>
+					<h3 className={styles.subheading}>{t("Visit Us")}</h3>
+					<p>{t("We invite you...")}</p>
 				</div>
 			</div>
 			<Footer />
@@ -57,3 +52,11 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
+
+export async function getStaticProps({ locale }) {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ["all"])),
+		},
+	};
+}

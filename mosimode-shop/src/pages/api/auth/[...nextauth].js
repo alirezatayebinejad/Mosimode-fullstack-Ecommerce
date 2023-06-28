@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 
+
 const loginUserSchema = z.object({
 	username: z.string().regex(/^[a-z0-9_-]{3,15}$/g, "Invalid username"),
 	password: z.string().min(5, "Password should be minimum 5 characters"),

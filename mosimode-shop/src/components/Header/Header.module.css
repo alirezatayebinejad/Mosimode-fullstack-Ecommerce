@@ -11,15 +11,36 @@
 	width: 100%;
 	height: 70px;
 }
+.logoSection {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+}
+.languageSelect {
+	color: black;
+	font-weight: bold;
+	border-bottom: solid 2px rgb(166, 166, 166);
+	padding: 3px;
+	font-size: 17px;
+	transition: 0.3s;
+}
+.languageSelect:hover {
+	background-color: var(--main-color);
+	border-color: var(--main-color);
+	color: white;
+}
 .logo {
 	display: flex;
 	align-items: center;
 	color: black;
 }
+.logo h3 {
+	margin: 0 12px;
+}
 .logo_image {
 	border-radius: 50%;
 	cursor: pointer;
-	margin: 0 10px;
 }
 
 .list_nav ul {
@@ -52,13 +73,15 @@
 .list_icon li {
 	margin-left: 8px;
 	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .list_icon a {
 	color: #1a1a1a;
-	padding-left: 20px;
 	transition: 0.3s ease;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 }
 .shoppingIcon_li {
 	position: relative;
@@ -74,7 +97,7 @@
 	align-items: center;
 	font-size: 14px;
 	top: 0;
-	right: -8px;
+	/*left or right based on locale in jsx*/
 }
 .list_icon a:hover,
 .list_nav ul a.active {
@@ -88,7 +111,8 @@
 	background: var(--main-color);
 	position: absolute;
 	bottom: -4px;
-	left: 20px;
+	left: 30%;
+	animation: fadein 0.4s;
 }
 
 .shop_list {
@@ -98,12 +122,13 @@
 .dropdown_content {
 	position: absolute;
 	top: 100%;
-	left: 0;
+	left: -50%;
 	display: none;
 	flex-direction: column;
 	width: 150px;
 	background-color: white;
 	border-radius: 12px;
+	animation: fadein 0.5s;
 }
 .dropdown_content ul {
 	display: flex;
@@ -113,11 +138,22 @@
 	margin: 0;
 }
 .dropdown_content ul li {
+	text-align: center;
 	margin: 10px 0;
 }
 
 .shop_list:hover .dropdown_content {
 	display: flex;
+}
+@keyframes fadein {
+	0% {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+	100% {
+		opacitx: 1;
+		transform: translateX(0px);
+	}
 }
 @media screen and (max-width: 770px) {
 	.header {
@@ -134,10 +170,18 @@
 		width: 35px;
 		height: 35px;
 	}
+	.logoSection {
+		gap: 0;
+	}
 }
 
 @media screen and (max-width: 400px) {
 	.userName {
+		display: none;
+	}
+}
+@media screen and (max-width: 330px) {
+	.logo h3 {
 		display: none;
 	}
 }

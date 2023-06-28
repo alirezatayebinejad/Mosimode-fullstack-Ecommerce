@@ -4,9 +4,14 @@ import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 export default function Register() {
+	const { t } = useTranslation("all");
 	const { data, status } = useSession();
+	const router = useRouter();
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -27,7 +32,7 @@ export default function Register() {
 		await signIn("credentials", {
 			username: data.user.username,
 			password: form.get("password"),
-			callbackUrl: "/",
+			callbackUrl: `/${router.locale}`,
 		});
 	}
 	if (status === "authenticated" && data !== null)
@@ -36,15 +41,15 @@ export default function Register() {
 				<Link href={"/"}>
 					<div className={styles.logo}>
 						<Image className={styles.logo_image} src="/logo.jpg" width={50} height={50} alt="mosimode logo picture" priority />
-						<h3>Mosimode</h3>
+						<h3>{Mosimode}</h3>
 					</div>
 				</Link>
 
 				<p className={styles.message}>
-					your are already logged in <br />
+					{t("your are already logged in")} <br />
 					<br />
 					<button className={styles.logout_btn} onClick={() => signOut()}>
-						Logout
+						{t("Logout")}
 					</button>
 				</p>
 			</div>
@@ -54,29 +59,36 @@ export default function Register() {
 			<Link href={"/"}>
 				<div className={styles.logo}>
 					<Image className={styles.logo_image} src="/logo.jpg" width={50} height={50} alt="mosimode logo picture" priority />
-					<h3>Mosimode</h3>
+					<h3>{t("Mosimode")}</h3>
 				</div>
 			</Link>
 			<form onSubmit={handleSubmit} className={styles.form}>
 				<h2 className={styles.heading}>
 					<PersonIcon style={{ border: "solid 1px black", borderRadius: "20px" }} />
-					Register
+					{t("Register")}
 				</h2>
 				<label htmlFor="username" className={styles.label}>
-					Username:
+					{t("Username")}:
 				</label>
 				<input type="text" id="username" name="username" required className={styles.input} />
 				<label htmlFor="password" className={styles.label}>
-					Password:
+					{t("Password")}:
 				</label>
 				<input type="password" id="password" name="password" required className={styles.input} />
 				<button type="submit" className={styles.button}>
-					Submit
+					{t("Submit")}
 				</button>
 			</form>
 			<p className={styles.message}>
-				Already registered? <Link href="/login">Login here</Link>
+				{t("Already registered?")} <Link href="/login">{t("Login")}</Link>
 			</p>
 		</div>
 	);
+}
+export async function getStaticProps({ locale }) {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ["all"])),
+		},
+	};
 }

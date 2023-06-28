@@ -8,8 +8,11 @@ import { openPopup } from "../../store/messagePopupSlice";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const CheckoutPage = () => {
+	const { t } = useTranslation("all");
 	const dispatch = useDispatch();
 	const router = useRouter();
 	const cartItems = useSelector((state) => state.cart.cart);
@@ -71,52 +74,59 @@ const CheckoutPage = () => {
 			<Header />
 			<div className={styles.checkoutPage}>
 				<div className={styles.orderItems}>
-					<h2>Order Items</h2>
+					<h2>{t("Order Items")}</h2>
 					<ul>
 						{cartItems.map((item) => (
 							<li key={item.product.id}>
 								<img src={item.product.image} alt={item.product.title} />
 								<span>{item.product.title}</span>
-								<span>Quantity: {item.count}</span>
-								<span>Price: ${item.product.price}</span>
+								<span>
+									{t("Quantity")}: {item.count}
+								</span>
+								<span>
+									{t("Price")}: {t("$")}
+									{item.product.price}
+								</span>
 							</li>
 						))}
 					</ul>
-					<div className={styles.totalPrice}>Total: ${totalPrice}</div>
+					<div className={styles.totalPrice}>
+						{t("Total")}: {t("$")} {totalPrice}
+					</div>
 				</div>
 				<div className={styles.orderForm}>
-					<h2>Order Form</h2>
+					<h2>{t("Order Form")}</h2>
 					<form onSubmit={handleSubmit}>
 						<div className={styles.formGroup}>
-							<label htmlFor="name">Name:</label>
+							<label htmlFor="name">{t("Name")}:</label>
 							<input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} required />
 						</div>
 						<div className={styles.formGroup}>
-							<label htmlFor="phoneNumber">Phone Number:</label>
+							<label htmlFor="phoneNumber">{t("Phone Number")}:</label>
 							<input type="text" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleInputChange} required />
 						</div>
 						<div className={styles.formGroup}>
-							<label htmlFor="address">Address:</label>
+							<label htmlFor="address">{t("Address")}:</label>
 							<input type="text" id="address" name="address" value={formData.address} onChange={handleInputChange} required />
 						</div>
 						<div className={styles.formGroup}>
-							<label htmlFor="state">state:</label>
+							<label htmlFor="state">{t("state")}:</label>
 							<input type="text" id="state" name="state" value={formData.state} onChange={handleInputChange} required />
 						</div>
 						<div className={styles.formGroup}>
-							<label htmlFor="city">City:</label>
+							<label htmlFor="city">{t("city")}:</label>
 							<input type="text" id="city" name="city" value={formData.city} onChange={handleInputChange} required />
 						</div>
 						<div className={styles.formGroup}>
-							<label htmlFor="postalCode">Postal Code:</label>
+							<label htmlFor="postalCode">{t("Postal Code")}:</label>
 							<input type="text" id="postalCode" name="postalCode" value={formData.postalCode} onChange={handleInputChange} required />
 						</div>
 						<div className={styles.formGroup}>
-							<label htmlFor="message">Message:</label>
+							<label htmlFor="message">{t("Message")}:</label>
 							<textarea id="message" name="message" value={formData.message} onChange={handleInputChange}></textarea>
 						</div>
 						<button type="submit" disabled={btndisable}>
-							Place Order
+							{t("Place Order")}
 						</button>
 					</form>
 				</div>
@@ -127,3 +137,11 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
+
+export async function getStaticProps({ locale }) {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ["all"])),
+		},
+	};
+}

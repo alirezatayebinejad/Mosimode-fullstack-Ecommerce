@@ -5,12 +5,15 @@ import Banner from "@/components/Banner/Banner.jsx";
 import Features from "@/components/Sections/Features.jsx";
 import Products from "@/components/Sections/Products.jsx";
 import OffBanner from "@/components/Sections/OffBanner";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Home({ products }) {
+	const { t } = useTranslation("all");
 	return (
 		<>
 			<Head>
-				<title>mosimode shop</title>
+				<title>{t("mosimode shop")}</title>
 				<meta name="description" content="mosimode ecommerce website" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
@@ -29,12 +32,14 @@ export default function Home({ products }) {
 		</>
 	);
 }
-export async function getServerSideProps() {
-	const response = await fetch("http://localhost:3000/api/getProducts");
+export async function getServerSideProps(context) {
+	const { locale } = context;
+	const response = await fetch(`${process.env.WEBSITE_DOMAIN}/api/getProducts`);
 	const data = await response.json();
 	return {
 		props: {
 			products: data.slice(0, 10),
+			...(await serverSideTranslations(locale, ["all"])),
 		},
 	};
 }

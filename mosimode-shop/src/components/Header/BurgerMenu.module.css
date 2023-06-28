@@ -18,20 +18,18 @@
 	width: 200px;
 	height: 100vh;
 	top: 0;
-	right: 0;
+	/*left 0 or right 0 based on locale in jsx style*/
 	box-shadow: 1px 1px 20px rgb(97, 97, 97);
 	padding: 5px 20px;
 	z-index: 99;
-	animation: fade-in 0.2s ease-in-out;
+	animation: fade-in 0.3s ease-in-out;
 }
 @keyframes fade-in {
 	0% {
 		opacity: 0;
-		transform: translateX(310px);
 	}
 	100% {
 		opacity: 1;
-		transform: translateX(0px);
 	}
 }
 .closebtn {

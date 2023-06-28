@@ -8,8 +8,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 const ShoppingCart = () => {
+	const { t } = useTranslation("all");
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const cartItems = useSelector((state) => state.cart.cart);
@@ -51,10 +53,12 @@ const ShoppingCart = () => {
 				</div>
 				<div className={styles.item_info}>
 					<p>{item.product.title}</p>
-					<h3>${item.product.price}</h3>
+					<h3>
+						{t("$")} {item.product.price}
+					</h3>
 					<div className={styles.count}>
 						<p>
-							count: <span>{item.count}</span>
+							{t("count")}: <span>{item.count}</span>
 						</p>
 						<button onClick={() => increaseHandler(item)} disabled={btndisable}>
 							+
@@ -75,15 +79,19 @@ const ShoppingCart = () => {
 	return (
 		<div className={styles.shoppingcart}>
 			<div className={styles.cartbackground} onClick={() => dispatch(setIsCartOpen({}))}></div>
-			<div className={styles.shoppingcartcontainer}>
+			<div className={styles.shoppingcartcontainer} style={router.locale === "fa" ? { left: 0 } : { right: 0 }}>
 				<div className={styles.closebtn} onClick={() => dispatch(setIsCartOpen({}))}>
 					<CloseIcon />
-					<p>close</p>
+					<p>{t("close")}</p>
 				</div>
-				<div className={styles.cartitems}>{generateCartItems()}</div>
+				<div className={styles.cartitems} dir="ltr">
+					{generateCartItems()}
+				</div>
 				{cartItems.length > 0 ? (
 					<div className={styles.cart_footer}>
-						<h3>Total Price: ${totalPrice}</h3>
+						<h3>
+							{t("Total Price")}: {totalPrice} {t("$")}
+						</h3>
 						<Link href={"/checkout"}>
 							<button
 								onClick={() => {
@@ -91,12 +99,12 @@ const ShoppingCart = () => {
 									router.push("/checkout");
 								}}
 							>
-								Checkout Page
+								{t("Checkout Page")}
 							</button>
 						</Link>
 					</div>
 				) : (
-					<h3 align="center">your cart is empty!</h3>
+					<h3 align="center">{t("your cart is empty")}!</h3>
 				)}
 			</div>
 		</div>

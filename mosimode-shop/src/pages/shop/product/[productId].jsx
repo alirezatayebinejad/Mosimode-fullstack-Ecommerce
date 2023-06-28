@@ -11,8 +11,11 @@ import { addToCart } from "../../../store/cartSlice";
 import { openPopup, closePopup } from "@/store/messagePopupSlice";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const ProductPage = ({ product, productList }) => {
+	const { t } = useTranslation("all");
 	const { data, status } = useSession();
 	const isAuthenticated = status === "unauthenticated" && data === null ? false : true;
 	const dispatch = useDispatch();
@@ -68,7 +71,7 @@ const ProductPage = ({ product, productList }) => {
 			<>
 				<Header />
 				<div className={styles.invalidpage}>
-					<h1>this product does not exist!</h1>
+					<h1>{t("this product does not exist")}!</h1>
 				</div>
 				<Footer />
 			</>
@@ -77,7 +80,9 @@ const ProductPage = ({ product, productList }) => {
 	return (
 		<>
 			<Head>
-				<title>{product.title} | mosimode</title>
+				<title>
+					{product.title} | {t("mosimode")}
+				</title>
 				<meta name="description" content={`product:${product.title}`} />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
@@ -91,21 +96,25 @@ const ProductPage = ({ product, productList }) => {
 						</div>
 						<div className={styles.product_info}>
 							<h3>{product.title}</h3>
-							<p className={styles.category}>category: {product.category}</p>
+							<p className={styles.category}>
+								{t("category")}: {product.category}
+							</p>
 							<div className={styles.stars}>
 								{generateStars(product.rate)}
 								<br />
 
 								<div className={styles.rateit}>
-									rate:
+									{t("rate")}:
 									<input type="number" min="0" max="5" value={userRating} ref={rateInputRef} onChange={(e) => setUserRating(e.target.value)} />
-									<button onClick={ratingSubmitHandle}>ok</button>
+									<button onClick={ratingSubmitHandle}>{t("ok")}</button>
 								</div>
 							</div>
 							<p className={styles.price}>${product.price}</p>
-							<p className={styles.description}>description: {product.description}</p>
+							<p className={styles.description}>
+								{t("Description")}: {product.description}
+							</p>
 							<button className={styles.addtobasket_btn} onClick={addToBasketHandler} disabled={btndisable}>
-								Add To Basket
+								{t("Add To Basket")}
 							</button>
 						</div>
 					</div>
@@ -116,9 +125,12 @@ const ProductPage = ({ product, productList }) => {
 		</>
 	);
 };
+
+export default ProductPage;
+
 export async function getServerSideProps(context) {
 	const { productId } = context.query;
-
+	const { locale } = context;
 	try {
 		// Fetch the product details based on productId
 		const response = await fetch(`${process.env.WEBSITE_DOMAIN}/api/getProducts?id=${productId}`);
@@ -130,6 +142,7 @@ export async function getServerSideProps(context) {
 			props: {
 				product,
 				productList: productList.slice(0, 6),
+				...(await serverSideTranslations(locale, ["all"])),
 			},
 		};
 	} catch (error) {
@@ -137,8 +150,8 @@ export async function getServerSideProps(context) {
 			props: {
 				product: null,
 				productList: {},
+				...(await serverSideTranslations(locale, ["all"])),
 			},
 		};
 	}
 }
-export default ProductPage;

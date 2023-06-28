@@ -9,8 +9,13 @@ import UsersTab from "../../../components/DashboardAdmin/Tabs/UsersTab";
 import OrdersTab from "../../../components/DashboardAdmin/Tabs/OrdersTab";
 import TabsHeader from "../../../components/DashboardAdmin/TabsHeader/TabsHeader";
 import { signOut } from "next-auth/react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 const adminDashboard = () => {
+	const { t } = useTranslation("all");
+	const router = useRouter();
 	const [activeTab, setActiveTab] = useState("Add Product");
 	const handleTabClick = (tab) => {
 		setActiveTab(tab);
@@ -23,31 +28,31 @@ const adminDashboard = () => {
 					<Link href={"/"}>
 						<Avatar alt="Travis Howard" src="/logo.jpg" sx={{ width: 35, height: 35 }} />
 					</Link>
-					<h3>Dashboard</h3>
+					<h3>{t("Dashboard")}</h3>
 				</div>
 				<ul className={styles.tabList}>
 					<li className={`${styles.tabListItem} ${activeTab === "Add Product" ? styles.activeTab : ""}`} onClick={() => handleTabClick("Add Product")}>
-						Add Product
+						{t("Add Product")}
 					</li>
 					<li className={`${styles.tabListItem} ${activeTab === "Products" ? styles.activeTab : ""}`} onClick={() => handleTabClick("Products")}>
-						Products
+						{t("Products")}
 					</li>
 					<li className={`${styles.tabListItem} ${activeTab === "Users" ? styles.activeTab : ""}`} onClick={() => handleTabClick("Users")}>
-						Users
+						{t("Users")}
 					</li>
 					<li className={`${styles.tabListItem} ${activeTab === "Orders" ? styles.activeTab : ""}`} onClick={() => handleTabClick("Orders")}>
-						Orders
+						{t("Orders")}
 					</li>
 				</ul>
 
-				<div className={styles.logout_btn} onClick={() => signOut()}>
-					<p>Logout</p>
+				<div className={styles.logout_btn} onClick={() => signOut({ callbackUrl: `/${router.locale}` })}>
+					<p>{t("Logout")}</p>
 				</div>
 			</div>
 			<div className={styles.content}>
 				{activeTab === "Add Product" && (
 					<>
-						<TabsHeader title="Add Product" description="here you can add products to the store using this form" />
+						<TabsHeader title={t("Add Product")} description={t("here you can add products to the store using this form")} />
 						<div className={styles.tabContent}>
 							<AddProductTab />
 						</div>
@@ -55,7 +60,7 @@ const adminDashboard = () => {
 				)}
 				{activeTab === "Products" && (
 					<>
-						<TabsHeader title="Products" description="here you can see the store products and adit them" />
+						<TabsHeader title={t("Products")} description={t("here you can see the store products and adit them")} />
 						<div className={styles.tabContent}>
 							<ProductsTab />
 						</div>
@@ -63,7 +68,7 @@ const adminDashboard = () => {
 				)}
 				{activeTab === "Users" && (
 					<>
-						<TabsHeader title="Users" description="here you can learn how you can see users and edit them" />
+						<TabsHeader title={t("Users")} description={t("here you can see users and edit them")} />
 						<div className={styles.tabContent}>
 							<UsersTab />
 						</div>
@@ -71,7 +76,7 @@ const adminDashboard = () => {
 				)}
 				{activeTab === "Orders" && (
 					<>
-						<TabsHeader title="Orders" description="here you can see orders that users have been made" />
+						<TabsHeader title={t("Orders")} description={t("here you can see orders that users have been made")} />
 						<div className={styles.tabContent}>
 							<OrdersTab />
 						</div>
@@ -86,7 +91,7 @@ export default adminDashboard;
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context);
-
+	const { locale } = context;
 	if (!session) {
 		return {
 			redirect: {
@@ -103,6 +108,8 @@ export async function getServerSideProps(context) {
 		};
 	}
 	return {
-		props: {},
+		props: {
+			...(await serverSideTranslations(locale, ["all"])),
+		},
 	};
 }

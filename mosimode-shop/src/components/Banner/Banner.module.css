@@ -18,7 +18,9 @@
 	margin-top: 100px;
 }
 .banner_content h2 {
-	color: rgb(241, 241, 241);
+	color: white;
+	max-width: 600px;
+	background-color: rgba(0, 0, 0, 0.357);
 }
 .banner_content button {
 	width: 260px;
@@ -35,6 +37,11 @@
 .banner_content button:hover {
 	background-color: var(--main-color);
 	color: white;
+}
+@media screen and (max-width: 530px) {
+	.image {
+		object-position: -200px 0px;
+	}
 }
 @media screen and (max-width: 400px) {
 	.banner_content h2 {
