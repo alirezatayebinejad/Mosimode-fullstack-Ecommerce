@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import Loading from '../components/Loading/Loading';
 import { Vazirmatn } from "next/font/google"
 import { League_Spartan } from "next/font/google"
+import ChatPopup from '../components/Popups/ChatPopup';
 
 const vazirmatn = Vazirmatn({
   subsets: ['latin', 'arabic'],
@@ -46,6 +47,7 @@ function App({ Component, pageProps }) {
           {loading ? <Loading spinnerType={"spinner1"} /> : null}
           <Component {...pageProps} />
           <MessagePopup />
+          <ChatPopup />
         </div>
       </Provider>
     </SessionProvider >
