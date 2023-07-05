@@ -17,7 +17,7 @@ const SearchPopup = ({ setIsSearchOpen }) => {
 	return (
 		<>
 			<div className={styles.background} onClick={() => setIsSearchOpen(false)}></div>
-			<div className={styles.searchpopup}>
+			<div className={styles.searchpopup} dir={"ltr"}>
 				<div className={styles.close} onClick={() => setIsSearchOpen(false)}>
 					<CloseIcon />
 					{t("close")}

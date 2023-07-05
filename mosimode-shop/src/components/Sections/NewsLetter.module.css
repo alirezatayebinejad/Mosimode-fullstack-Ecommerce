@@ -1,0 +1,67 @@
+.newsLetter {
+	background-image: url("/assets/banners/newsletterbg.png");
+	background-repeat: no-repeat;
+	background-position: 180px;
+	background-color: #041e42;
+	min-height: 160px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 75px;
+}
+.newsLetter .newsletter_text h3 {
+	color: white;
+	font-size: 30px;
+	padding: 0 0 15px 0;
+}
+.newsLetter .newsletter_text h5 {
+	color: rgb(151, 151, 151);
+	font-size: 17px;
+}
+.newsLetter .newsletter_text h5 span {
+	color: rgb(216, 182, 29);
+}
+.form {
+	display: flex;
+	height: 60px;
+}
+.newsLetter .form input {
+	padding: 20px;
+	width: 350px;
+	background-color: #d1d0d0;
+	border-radius: 6px 0 0 6px;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	margin-right: -4px;
+	margin-top: 1px;
+}
+.newsLetter .form button {
+	margin-left: 0;
+	padding: 20px;
+	border: none;
+	width: 120px;
+	background-color: var(--main-color);
+	color: white;
+	font-size: 17px;
+	border-radius: 0 6px 6px 0;
+	cursor: pointer;
+}
+@media screen and (max-width: 820px) {
+	.newsLetter {
+		flex-wrap: wrap;
+		justify-content: center;
+		padding: 20px;
+	}
+	.form {
+		height: 50px;
+		margin-top: 20px;
+	}
+	.newsLetter .form input {
+		width: 180px;
+	}
+	.newsLetter .form button {
+		width: 80px;
+		font-size: 10px;
+	}
+}

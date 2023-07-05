@@ -1,0 +1,41 @@
+.bannerCard {
+	padding: 20px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 400px;
+	height: 250px;
+	border-radius: 12px;
+}
+.info {
+	color: white;
+	display: flex;
+	flex-direction: column;
+	text-shadow: 1px 1px 5px black;
+	gap: 10px;
+}
+.info h2 {
+	font-size: 25px;
+	color: white;
+	text-shadow: 1px 1px 5px black;
+}
+.info button {
+	text-shadow: 1px 1px 5px black;
+	width: 130px;
+	height: 50px;
+	background-color: transparent;
+	border: solid 1px white;
+	color: white;
+	cursor: pointer;
+	margin-top: 10px;
+	transition: 0.3s;
+	border-radius: 5px;
+}
+.info button:hover {
+	background-color: var(--main-color);
+	border-color: var(--main-color);
+}
+@media screen and (max-width: 480px) {
+	.bannerCard {
+		width: 300px;
+	}
+}
