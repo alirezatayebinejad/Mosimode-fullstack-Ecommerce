@@ -28,22 +28,22 @@ const AboutPage = () => {
 				</h2>
 				<div className={styles.content}>
 					<h3 className={styles.subheading}>{t("Our Story")}</h3>
-					<p>{t("Mosimode is a...")}</p>
+					<p>{t("Mosimode is a")}</p>
 				</div>
 				<div className={styles.content}>
 					<h3 className={styles.subheading}>{t("Our Collections")}</h3>
 					<div>
 						<Image src="/assets/banners/about1.jpg" alt="Collection 1" width={976} height={488} className={styles.image} priority />
-						<p>{t("Our collection showcases...")}</p>
+						<p>{t("Our collection showcases")}</p>
 					</div>
 					<div>
 						<Image src="/assets/banners/about2.jpg" alt="Collection 2" width={400} height={300} className={styles.image} />
-						<p>{t("Our curated selection...")}</p>
+						<p>{t("Our curated selection")}</p>
 					</div>
 				</div>
 				<div className={styles.content}>
 					<h3 className={styles.subheading}>{t("Visit Us")}</h3>
-					<p>{t("We invite you...")}</p>
+					<p>{t("We invite you")}</p>
 				</div>
 			</div>
 			<Footer />

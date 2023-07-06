@@ -23,7 +23,7 @@ const SearchPopup = ({ setIsSearchOpen }) => {
 					{t("close")}
 				</div>
 				<div className={styles.search}>
-					<input type="text" name="search" onChange={(e) => setSearchTerm(e.target.value)} placeholder={t("search product...")} />
+					<input type="text" name="search" onChange={(e) => setSearchTerm(e.target.value)} placeholder={t("search product")} />
 					<button onClick={handleSearch}>
 						<SearchIcon />
 					</button>
