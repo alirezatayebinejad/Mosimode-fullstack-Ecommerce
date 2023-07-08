@@ -3,12 +3,12 @@ import { getSession } from "next-auth/react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
-const dashboardRoot = () => {
+const DashboardRoot = () => {
 	const { t } = useTranslation("all");
 	return <div>{t("dashboard Root")}</div>;
 };
 
-export default dashboardRoot;
+export default DashboardRoot;
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context);

@@ -13,7 +13,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 
-const adminDashboard = () => {
+const AdminDashboard = () => {
 	const { t } = useTranslation("all");
 	const router = useRouter();
 	const [activeTab, setActiveTab] = useState("Add Product");
@@ -87,7 +87,7 @@ const adminDashboard = () => {
 	);
 };
 
-export default adminDashboard;
+export default AdminDashboard;
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context);

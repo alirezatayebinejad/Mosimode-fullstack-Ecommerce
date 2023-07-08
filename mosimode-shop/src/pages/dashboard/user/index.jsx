@@ -8,7 +8,7 @@ import styles from "./index.module.css";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
-const userDashboard = ({ user, orders }) => {
+const UserDashboard = ({ user, orders }) => {
 	const { t } = useTranslation("all");
 	const [activeTab, setActiveTab] = useState("userInfo");
 
@@ -37,7 +37,7 @@ const userDashboard = ({ user, orders }) => {
 	);
 };
 
-export default userDashboard;
+export default UserDashboard;
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context);

@@ -4,7 +4,7 @@ import ProductCard from "../Cards/ProductCard";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 
-const products = ({ products, title }) => {
+const Products = ({ products, title }) => {
 	const { t } = useTranslation("all");
 	return (
 		<>
@@ -25,4 +25,4 @@ const products = ({ products, title }) => {
 	);
 };
 
-export default products;
+export default Products;
