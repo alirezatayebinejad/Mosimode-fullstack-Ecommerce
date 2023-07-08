@@ -5,7 +5,7 @@ import Banner from "@/components/Banner/Banner.jsx";
 import Features from "@/components/Sections/Features.jsx";
 import Products from "@/components/Sections/Products.jsx";
 import OffBanner from "@/components/Sections/OffBanner";
-import NewsLetter from "../components/Sections/newsLetter";
+import NewsLetter from "../components/Sections/NewsLetter";
 import CallBanners from "../components/Sections/CallBanners";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
